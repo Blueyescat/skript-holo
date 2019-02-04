@@ -1,0 +1,12 @@
+name: skript-holo
+description: A properly made Skript addon for HolographicDisplays
+version: @version@
+
+author: Blueyescat
+website: https://github.com/Blueyescat
+
+depend: [Skript, HolographicDisplays]
+softdepend: [ProtocolLib]
+
+main: me.blueyescat.skriptholo.SkriptHolo
+api-version: 1.13
