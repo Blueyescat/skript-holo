@@ -31,7 +31,8 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 public class ExprLastCreatedHologram extends SimpleExpression<Hologram> {
 
 	static {
-		Skript.registerExpression(ExprLastCreatedHologram.class, Hologram.class, ExpressionType.SIMPLE, "[the] [last[ly]] [(created|spawned)] holo[gram]");
+		Skript.registerExpression(ExprLastCreatedHologram.class, Hologram.class, ExpressionType.SIMPLE,
+				"[the] [last[ly]] [(created|spawned)] holo[gram]");
 	}
 
 	@Override

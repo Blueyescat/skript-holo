@@ -34,8 +34,12 @@ import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
  * @author Blueyescat
  */
 @Name("Create Hologram")
-@Description({"TODO"})
-@Examples({"TODO"})
+@Description({"Creates a new hologram. The 'Last Created Hologram' expression can be used to get the created hologram."})
+@Examples({"create a new hologram with line \"test\"",
+		"create holo with line \"test\" at the targeted entity",
+		"create new hologram with line \"test\" that follows player for 10 seconds",
+		"create holo with line \"test\" that follows the player with offset by vector(0, 2.4, 0) for 10 seconds",
+		"create a hologram with lines \"&bDiamond Armor\" and every diamond armor"})
 @Since("0.1.0")
 public class EffCreateHologram extends Effect {
 
@@ -50,13 +54,12 @@ public class EffCreateHologram extends Effect {
 	private Expression<Entity> entity;
 	private Expression<Vector> offset;
 	private Expression<Timespan> duration;
-
 	private boolean isFollowing;
 
 	@Nullable
 	public static Hologram lastCreated = null;
 
-	@SuppressWarnings({"unchecked", "null"})
+	@SuppressWarnings({"unchecked"})
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parser) {
 		isFollowing = matchedPattern == 1;
