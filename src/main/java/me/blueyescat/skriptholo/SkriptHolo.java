@@ -95,7 +95,7 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 			Location to = event.getTo().clone();
 			Location location = to.add(offset);
 			if ((holo.getWorld() != to.getWorld()) ||
-					(new Location(holo.getWorld(), holo.getX(), holo.getY(), holo.getZ()).distance(location) != 0))
+					(holo.getLocation().distance(location) != 0))
 				holo.teleport(location);
 		}
 	}
@@ -144,7 +144,7 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 							Vector offset = (Vector) entry.getValue();
 							Location location = entity.getLocation().clone().add(offset);
 							if ((holo.getWorld() != location.getWorld()) ||
-									(new Location(holo.getWorld(), holo.getX(), holo.getY(), holo.getZ()).distance(location) != 0))
+									(holo.getLocation().distance(location) != 0))
 								holo.teleport(location);
 						}
 					}

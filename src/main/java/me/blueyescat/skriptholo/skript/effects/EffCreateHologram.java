@@ -34,7 +34,7 @@ import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
  * @author Blueyescat
  */
 @Name("Create Hologram")
-@Description({"Creates a new hologram. The 'Last Created Hologram' expression can be used to get the created hologram."})
+@Description({"Creates a new hologram. The `Last Created Hologram` expression can be used to get the created hologram."})
 @Examples({"create a new hologram with line \"test\"",
 		"create holo with line \"test\" at the targeted entity",
 		"create new hologram with line \"test\" that follows player for 10 seconds",
