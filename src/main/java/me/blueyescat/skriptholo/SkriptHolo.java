@@ -35,23 +35,23 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
  */
 public class SkriptHolo extends JavaPlugin implements Listener {
 
-    private static SkriptHolo instance;
-    private static SkriptAddon addonInstance;
+	private static SkriptHolo instance;
+	private static SkriptAddon addonInstance;
 
 	private static boolean startedFollowingHologramTasks = false;
 	public static Map<Integer, Map<Hologram, Vector>> followingHolograms = new HashMap<>();
 	public static Map<Entity, List<Hologram>> followingHologramsEntities = new ConcurrentHashMap<>();
 
 	public SkriptHolo() {
-        if (instance == null)
-            instance = this;
-        else
-            throw new IllegalStateException();
-    }
+		if (instance == null)
+			instance = this;
+		else
+			throw new IllegalStateException();
+	}
 
-    @Override
-    public void onEnable() {
-    	Logger logger = getLogger();
+	@Override
+	public void onEnable() {
+		Logger logger = getLogger();
 
 		if (!Skript.isAcceptRegistrations()) {
 			getServer().getPluginManager().disablePlugin(this);
@@ -73,7 +73,7 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 				getServer().getPluginManager().getPlugin("HolographicDisplays").getDescription().getVersion()));
 		logger.info("Started metrics!");
 		logger.info("Finished loading!");
-    }
+	}
 
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
@@ -196,16 +196,16 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 		return Bukkit.getServer().getPluginManager().isPluginEnabled("ProtocolLib");
 	}
 
-    public static SkriptAddon getAddonInstance() {
-        if (addonInstance == null)
-            addonInstance = Skript.registerAddon(getInstance());
-        return addonInstance;
-    }
+	public static SkriptAddon getAddonInstance() {
+		if (addonInstance == null)
+			addonInstance = Skript.registerAddon(getInstance());
+		return addonInstance;
+	}
 
-    public static SkriptHolo getInstance() {
-        if (instance == null)
-            throw new IllegalStateException();
-        return instance;
-    }
+	public static SkriptHolo getInstance() {
+		if (instance == null)
+			throw new IllegalStateException();
+		return instance;
+	}
 
 }
