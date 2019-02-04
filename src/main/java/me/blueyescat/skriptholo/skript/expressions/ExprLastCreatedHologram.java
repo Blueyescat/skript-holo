@@ -23,7 +23,9 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
  * @author Blueyescat
  */
 @Name("Last Created Hologram")
-@Description({"Holds the hologram that was created most recently with the create hologram effect."})
+@Description({"Holds the hologram that was created most recently with the create hologram effect.",
+		"Can be deleted using 'delete' or 'clear' changers which means the hologram will be "+
+		"removed from the world and this expression will return nothing."})
 @Examples({"set {_holo} to the created hologram"})
 @Since("0.1.0")
 public class ExprLastCreatedHologram extends SimpleExpression<Hologram> {
@@ -53,7 +55,8 @@ public class ExprLastCreatedHologram extends SimpleExpression<Hologram> {
 	@SuppressWarnings("null")
 	@Override
 	public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
-		EffCreateHologram.lastCreated.delete();
+		if (!EffCreateHologram.lastCreated.isDeleted())
+			EffCreateHologram.lastCreated.delete();
 		EffCreateHologram.lastCreated = null;
 	}
 
