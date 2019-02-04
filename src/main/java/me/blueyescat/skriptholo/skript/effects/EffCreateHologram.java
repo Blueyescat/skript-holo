@@ -81,12 +81,12 @@ public class EffCreateHologram extends Effect {
 		Object[] lines = null;
 		if (this.lines != null)
 			lines = this.lines.getArray(e);
-		if (location == null)
-			return;
 		Location location = null;
 		Entity entity = null;
 		Vector offset = new Vector();
 		if (!isFollowing) {
+			if (this.location == null)
+				return;
 			location = this.location.getSingle(e);
 		} else {
 			if (this.entity != null) {
