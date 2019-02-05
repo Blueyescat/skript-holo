@@ -28,7 +28,7 @@ import com.gmail.filoghost.holographicdisplays.api.line.ItemLine;
 import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
 
 import me.blueyescat.skriptholo.skript.Types;
-import me.blueyescat.skriptholo.util.Util;
+import me.blueyescat.skriptholo.util.Utils;
 
 /**
  * @author Blueyescat
@@ -55,8 +55,8 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 	private Kleenean firstLine = Kleenean.UNKNOWN;
 	private boolean isSingle = true;
 
-	@SuppressWarnings({"unchecked"})
 	@Override
+	@SuppressWarnings({"unchecked"})
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		// All lines
 		Skript.info(String.valueOf(matchedPattern));
@@ -82,7 +82,7 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 			if (this.line == null) {
 				// All lines
 				if (firstLine.isUnknown()) {
-					lines.addAll(Util.getHologramLines(holo));
+					lines.addAll(Utils.getHologramLines(holo));
 				// First/Last Line
 				} else {
 					int line = firstLine.isTrue() ? 0 : holo.size() - 1;
@@ -103,7 +103,6 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 	}
 
 	@Override
-	@Nullable
 	public Class<?>[] acceptChange(ChangeMode mode) {
 		// All lines
 		if (!isSingle) {

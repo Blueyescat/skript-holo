@@ -47,14 +47,12 @@ public class ExprLastCreatedHologram extends SimpleExpression<Hologram> {
 	}
 
 	@Override
-	@Nullable
 	public Class<?>[] acceptChange(ChangeMode mode) {
 		if (mode == ChangeMode.DELETE)
 			return CollectionUtils.array();
 		return null;
 	}
 
-	@SuppressWarnings("null")
 	@Override
 	public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
 		if (!EffCreateHologram.lastCreated.isDeleted())

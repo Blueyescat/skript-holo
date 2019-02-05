@@ -60,8 +60,8 @@ public class EffCreateHologram extends Effect {
 	@Nullable
 	public static Hologram lastCreated = null;
 
-	@SuppressWarnings({"unchecked"})
 	@Override
+	@SuppressWarnings({"unchecked"})
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parser) {
 		isFollowing = matchedPattern == 1;
 		lines = exprs[0];
