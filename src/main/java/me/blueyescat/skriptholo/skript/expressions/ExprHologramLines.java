@@ -9,6 +9,7 @@ import org.eclipse.jdt.annotation.Nullable;
 
 import me.blueyescat.skriptholo.skript.Types;
 import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
+import me.blueyescat.skriptholo.util.Util;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.aliases.ItemType;
@@ -83,8 +84,7 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 			if (this.line == null) {
 				// All lines
 				if (firstLine.isUnknown()) {
-					for (int line = 0; line < holo.size(); line++)
-						lines.add(holo.getLine(line));
+					lines.addAll(Util.getHologramLines(holo));
 				// First/Last Line
 				} else {
 					int line = firstLine.isTrue() ? 0 : holo.size() - 1;
@@ -179,9 +179,8 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 					break;
 				case DELETE:
 				case RESET:
-					for (Hologram holo : holograms.getArray(e)) {
+					for (Hologram holo : holograms.getArray(e))
 						holo.clearLines();
-					}
 			}
 		// Single lines will use changers of the HologramLine type
 		} else {

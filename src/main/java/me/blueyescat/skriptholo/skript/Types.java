@@ -1,16 +1,20 @@
 package me.blueyescat.skriptholo.skript;
 
+import org.bukkit.inventory.ItemStack;
 import org.eclipse.jdt.annotation.Nullable;
 
 import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
+import me.blueyescat.skriptholo.util.Util;
 
 import ch.njol.skript.aliases.ItemType;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.classes.ClassInfo;
+import ch.njol.skript.classes.Converter;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.expressions.base.EventValueExpression;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
+import ch.njol.skript.registrations.Converters;
 import ch.njol.util.coll.CollectionUtils;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
@@ -56,9 +60,8 @@ public class Types {
 							}
 						} else {
 							for (Hologram holo : holograms) {
-								if (!holo.isDeleted()) {
+								if (!holo.isDeleted())
 									holo.clearLines();
-								}
 							}
 						}
 					}
@@ -86,7 +89,6 @@ public class Types {
 					}
 				}));
 
-
 		// Hologram Line
 		hologramLineChanger = new Changer<HologramLine>() {
 			@Override
@@ -95,6 +97,7 @@ public class Types {
 				if (mode == ChangeMode.DELETE || mode == ChangeMode.RESET || mode == ChangeMode.SET)
 					return CollectionUtils.array(String.class, ItemType.class);
 				return null;
+
 			}
 
 			@Override
@@ -108,15 +111,33 @@ public class Types {
 						if (o instanceof String) {
 							if (line instanceof TextLine) {
 								((TextLine) line).setText((String) o);
+							// Find the line and make it TextLine
 							} else {
-								// TODO find the line and make it TextLine
+								Hologram holo = line.getParent();
+								int i = 0;
+								for (HologramLine l : Util.getHologramLines(holo)) {
+									if (l.equals(line)) {
+										line.removeLine();
+										holo.insertTextLine(i, (String) o);
+									}
+									i++;
+								}
 							}
 
 						} else {
 							if (line instanceof ItemLine) {
 								((ItemLine) line).setItemStack(((ItemType) o).getItem().getRandom());
+							// Find the line and make it ItemLine
 							} else {
-								// TODO find the line and make it ItemLine
+								Hologram holo = line.getParent();
+								int i = 0;
+								for (HologramLine l : Util.getHologramLines(holo)) {
+									if (l.equals(line)) {
+										line.removeLine();
+										holo.insertItemLine(i, ((ItemType) o).getItem().getRandom());
+									}
+									i++;
+								}
 							}
 						}
 					}
@@ -156,6 +177,9 @@ public class Types {
 						return "\\S+";
 					}
 				}));
+
+		Converters.registerConverter(TextLine.class, String.class, (Converter<TextLine, String>) TextLine::getText);
+		Converters.registerConverter(ItemLine.class, ItemStack.class, (Converter<ItemLine, ItemStack>) ItemLine::getItemStack);
 
 	}
 
