@@ -47,6 +47,7 @@ public class ExprHologramLineContent<T> extends SimpleExpression<T> {
 				"[holo[gram]] [line[s]] %hologramlines%'[s] (content|1¦(text|string)|2¦item)[s]");
 	}
 
+	private ExprHologramLineContent<?> source;
 	private final Class<T> superType;
 
 	private Expression<HologramLine> lines;
@@ -57,9 +58,15 @@ public class ExprHologramLineContent<T> extends SimpleExpression<T> {
 	}
 
 	private ExprHologramLineContent(ExprHologramLineContent<?> source, Class<? extends T>... types) {
+		this.source = source;
 		if (source != null)
 			lines = source.lines;
 		superType = (Class<T>) Utils.getSuperType(types);
+	}
+
+	@Override
+	public Expression<?> getSource() {
+		return source == null ? this : source;
 	}
 
 	@Override
@@ -88,7 +95,7 @@ public class ExprHologramLineContent<T> extends SimpleExpression<T> {
 		}
 		try {
 			return Converters.convertStrictly(contents.toArray(), superType);
-		} catch (ClassCastException e1) {
+		} catch (ClassCastException cce) {
 			return (T[]) Array.newInstance(superType, 0);
 		}
 	}
