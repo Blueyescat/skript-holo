@@ -63,6 +63,11 @@ public class ExprHologramLineContent<T> extends SimpleExpression<T> {
 	}
 
 	@Override
+	public final <R> Expression<? extends R> getConvertedExpression(Class<R>... to) {
+		return new ExprHologramLineContent<>(this, to);
+	}
+
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		lines = (Expression<HologramLine>) exprs[0];
 		type = parseResult.mark;
@@ -112,11 +117,6 @@ public class ExprHologramLineContent<T> extends SimpleExpression<T> {
 	@Override
 	public Class<? extends T> getReturnType() {
 		return superType;
-	}
-
-	@Override
-	public final <R> Expression<? extends R> getConvertedExpression(Class<R>... to) {
-		return new ExprHologramLineContent<>(this, to);
 	}
 
 	@Override
