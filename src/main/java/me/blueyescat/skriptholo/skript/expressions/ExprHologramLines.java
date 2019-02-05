@@ -4,12 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.event.Event;
-import org.bukkit.inventory.ItemStack;
 import org.eclipse.jdt.annotation.Nullable;
-
-import me.blueyescat.skriptholo.skript.Types;
-import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
-import me.blueyescat.skriptholo.util.Util;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.aliases.ItemType;
@@ -23,14 +18,17 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.registrations.Comparators;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
+
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 import com.gmail.filoghost.holographicdisplays.api.line.ItemLine;
 import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
+
+import me.blueyescat.skriptholo.skript.Types;
+import me.blueyescat.skriptholo.util.Util;
 
 /**
  * @author Blueyescat

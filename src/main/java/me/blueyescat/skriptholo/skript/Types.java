@@ -3,9 +3,6 @@ package me.blueyescat.skriptholo.skript;
 import org.bukkit.inventory.ItemStack;
 import org.eclipse.jdt.annotation.Nullable;
 
-import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
-import me.blueyescat.skriptholo.util.Util;
-
 import ch.njol.skript.aliases.ItemType;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.classes.ClassInfo;
@@ -16,17 +13,21 @@ import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.registrations.Converters;
 import ch.njol.util.coll.CollectionUtils;
+
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 import com.gmail.filoghost.holographicdisplays.api.line.ItemLine;
 import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
+
+import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
+import me.blueyescat.skriptholo.util.Util;
 
 /**
  * @author Blueyescat
  */
 public class Types {
 
-	public static Changer<HologramLine> hologramLineChanger = null;
+	public static Changer<HologramLine> hologramLineChanger;
 
 	static {
 		// Hologram

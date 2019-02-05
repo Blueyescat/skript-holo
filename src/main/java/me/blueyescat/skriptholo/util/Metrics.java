@@ -26,7 +26,7 @@ import org.json.simple.JSONObject;
 /**
  * bStats collects some data for plugin authors.
  *
- * Check out https://bStats.org/ to learn more about bStats!
+ * Check out https://bStats.org to learn more about bStats!
  */
 public class Metrics {
 

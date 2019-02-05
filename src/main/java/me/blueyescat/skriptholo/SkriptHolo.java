@@ -18,10 +18,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import me.blueyescat.skriptholo.util.Metrics;
-
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
+
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
@@ -29,6 +28,8 @@ import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
+
+import me.blueyescat.skriptholo.util.Metrics;
 
 /**
  * @author Blueyescat
