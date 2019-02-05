@@ -6,7 +6,7 @@ import java.util.List;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 
-public class Util {
+public class Utils {
 
 	public static List<HologramLine> getHologramLines(Hologram holo) {
 		List<HologramLine> lines = new ArrayList<>();

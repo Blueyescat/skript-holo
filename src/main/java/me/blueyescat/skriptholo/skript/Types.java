@@ -20,7 +20,7 @@ import com.gmail.filoghost.holographicdisplays.api.line.ItemLine;
 import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
 
 import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
-import me.blueyescat.skriptholo.util.Util;
+import me.blueyescat.skriptholo.util.Utils;
 
 /**
  * @author Blueyescat
@@ -42,7 +42,6 @@ public class Types {
 				.defaultExpression(new EventValueExpression<>(Hologram.class))
 				.changer(new Changer<Hologram>() {
 					@Override
-					@Nullable
 					public Class<?>[] acceptChange(ChangeMode mode) {
 						if (mode == ChangeMode.DELETE || mode == ChangeMode.RESET)
 							return CollectionUtils.array();
@@ -78,7 +77,6 @@ public class Types {
 						return "hologram";
 					}
 
-					@SuppressWarnings("null")
 					@Override
 					public String toVariableNameString(Hologram holo) {
 						return "hologram";
@@ -93,7 +91,6 @@ public class Types {
 		// Hologram Line
 		hologramLineChanger = new Changer<HologramLine>() {
 			@Override
-			@Nullable
 			public Class<?>[] acceptChange(ChangeMode mode) {
 				if (mode == ChangeMode.DELETE || mode == ChangeMode.RESET || mode == ChangeMode.SET)
 					return CollectionUtils.array(String.class, ItemType.class);
@@ -116,7 +113,7 @@ public class Types {
 							} else {
 								Hologram holo = line.getParent();
 								int i = 0;
-								for (HologramLine l : Util.getHologramLines(holo)) {
+								for (HologramLine l : Utils.getHologramLines(holo)) {
 									if (l.equals(line)) {
 										line.removeLine();
 										holo.insertTextLine(i, (String) o);
@@ -132,7 +129,7 @@ public class Types {
 							} else {
 								Hologram holo = line.getParent();
 								int i = 0;
-								for (HologramLine l : Util.getHologramLines(holo)) {
+								for (HologramLine l : Utils.getHologramLines(holo)) {
 									if (l.equals(line)) {
 										line.removeLine();
 										holo.insertItemLine(i, ((ItemType) o).getItem().getRandom());
@@ -165,7 +162,6 @@ public class Types {
 						return "hologram line";
 					}
 
-					@SuppressWarnings("null")
 					@Override
 					public String toVariableNameString(HologramLine line) {
 						if (line instanceof ItemLine)
