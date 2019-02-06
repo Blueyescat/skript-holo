@@ -92,10 +92,10 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 			Player player = event.getPlayer();
 			if (!holo.getVisibilityManager().isVisibleTo(player))
 				return;
-			Vector offset = (Vector) entry.getValue();
-			Location to = event.getTo().clone();
-			Location location = to.add(offset);
-			if ((holo.getWorld() != to.getWorld()) ||
+			Location location = event.getTo().clone();
+			if (entry.getValue() != null)
+				location.add((Vector) entry.getValue());
+			if ((holo.getWorld() != location.getWorld()) ||
 					(holo.getLocation().distance(location) != 0))
 				holo.teleport(location);
 		}
@@ -142,8 +142,9 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 							Entity entity = event.getPacket().getEntityModifier(event).getValues().get(0);
 							if (player.equals(entity) && !holo.getVisibilityManager().isVisibleTo(player))
 								continue;
-							Vector offset = (Vector) entry.getValue();
-							Location location = entity.getLocation().clone().add(offset);
+							Location location = entity.getLocation().clone();
+							if (entry.getValue() != null)
+								location.add((Vector) entry.getValue());
 							if ((holo.getWorld() != location.getWorld()) ||
 									(holo.getLocation().distance(location) != 0))
 								holo.teleport(location);
@@ -160,20 +161,20 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 					}
 				});
 
-			/*
-			protocolManager.addPacketListener(
-					new PacketAdapter(getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.SPAWN_ENTITY,
-							PacketType.Play.Server.SPAWN_ENTITY_EXPERIENCE_ORB, PacketType.Play.Server.SPAWN_ENTITY_LIVING,
-							PacketType.Play.Server.SPAWN_ENTITY_PAINTING, PacketType.Play.Server.SPAWN_ENTITY_WEATHER,
-							PacketType.Play.Server.NAMED_ENTITY_SPAWN) {
-						@Override
-						public void onPacketSending(PacketEvent event) {
-							Entity entity = event.getPacket().getEntityModifier(event).getValues().get(0);
-							List<Entity> entityList = entitiesFollowedByHolograms.get(entityID);
-							deleteFollowingHolograms(entity);
-						}
-					});
-			*/
+		/*
+		protocolManager.addPacketListener(
+				new PacketAdapter(getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.SPAWN_ENTITY,
+						PacketType.Play.Server.SPAWN_ENTITY_EXPERIENCE_ORB, PacketType.Play.Server.SPAWN_ENTITY_LIVING,
+						PacketType.Play.Server.SPAWN_ENTITY_PAINTING, PacketType.Play.Server.SPAWN_ENTITY_WEATHER,
+						PacketType.Play.Server.NAMED_ENTITY_SPAWN) {
+					@Override
+					public void onPacketSending(PacketEvent event) {
+						Entity entity = event.getPacket().getEntityModifier(event).getValues().get(0);
+						List<Entity> entityList = entitiesFollowedByHolograms.get(entityID);
+						deleteFollowingHolograms(entity);
+					}
+				});
+		*/
 
 		new BukkitRunnable() {
 			@SuppressWarnings("unchecked")
@@ -190,11 +191,7 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 					}
 				}
 			}
-		}.runTaskTimerAsynchronously(SkriptHolo.getInstance(), 60, 0);
-	}
-
-	public static boolean hasProtocolLib() {
-		return Bukkit.getServer().getPluginManager().isPluginEnabled("ProtocolLib");
+		}.runTaskTimerAsynchronously(getInstance(), 60, 0);
 	}
 
 	public static SkriptAddon getAddonInstance() {

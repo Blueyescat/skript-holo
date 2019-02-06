@@ -30,6 +30,7 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 
 import me.blueyescat.skriptholo.SkriptHolo;
+import me.blueyescat.skriptholo.util.Utils;
 
 /**
  * @author Blueyescat
@@ -69,7 +70,7 @@ public class EffCreateHologram extends Effect {
 			location = Direction.combine((Expression<Direction>) exprs[1], (Expression<Location>) exprs[2]);
 			duration = (Expression<Timespan>) exprs[3];
 		} else {
-			if (!SkriptHolo.hasProtocolLib()) {
+			if (!Utils.hasProtocolLib()) {
 				Skript.error("The following hologram feature requires ProtocolLib");
 				return false;
 			}
@@ -82,12 +83,9 @@ public class EffCreateHologram extends Effect {
 
 	@Override
 	protected void execute(Event e) {
-		Object[] lines = null;
-		if (this.lines != null)
-			lines = this.lines.getArray(e);
 		Location location = null;
 		Entity entity = null;
-		Vector offset = new Vector();
+		Vector offset = null;
 		if (!isFollowing) {
 			if (this.location == null)
 				return;
@@ -100,8 +98,9 @@ public class EffCreateHologram extends Effect {
 				location = entity.getLocation();
 				if (this.offset != null) {
 					offset = this.offset.getSingle(e);
-					if (offset != null)
-						location.add(offset);
+					if (offset == null)
+						return;
+					location.add(offset);
 				}
 			}
 		}
@@ -109,7 +108,7 @@ public class EffCreateHologram extends Effect {
 		Hologram holo = HologramsAPI.createHologram(SkriptHolo.getInstance(), location);
 		lastCreated = holo;
 		if (lines != null) {
-			for (Object line : lines) {
+			for (Object line : lines.getArray(e)) {
 				if (line instanceof String) {
 					holo.appendTextLine((String) line);
 				} else if (line instanceof ItemType) {
@@ -120,7 +119,7 @@ public class EffCreateHologram extends Effect {
 		}
 		if (isFollowing) {
 			assert entity != null;
-			Map<Hologram, Vector> holoMap = null;
+			Map<Hologram, Vector> holoMap;
 			int entityID = entity.getEntityId();
 			holoMap = SkriptHolo.followingHolograms.get(entityID);
 			if (holoMap == null)
@@ -128,7 +127,7 @@ public class EffCreateHologram extends Effect {
 			holoMap.put(holo, offset);
 			SkriptHolo.followingHolograms.put(entityID, holoMap);
 
-			List<Hologram> holoList = null;
+			List<Hologram> holoList;
 			holoList = SkriptHolo.followingHologramsEntities.get(entity);
 			if (holoList == null)
 				holoList = new ArrayList<>();
