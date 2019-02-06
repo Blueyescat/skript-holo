@@ -95,7 +95,7 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 					continue;
 				int li = l.intValue() - 1;
 				if (!(li >= 0 && li < holo.size()))
-				continue;
+					continue;
 				lines.add(holo.getLine(li));
 			}
 		}

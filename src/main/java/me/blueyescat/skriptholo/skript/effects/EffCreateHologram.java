@@ -63,13 +63,13 @@ public class EffCreateHologram extends Effect {
 
 	@Override
 	@SuppressWarnings({"unchecked"})
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parser) {
-		isFollowing = matchedPattern == 1;
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		lines = exprs[0];
-		if (!isFollowing) {
+		if (matchedPattern == 0) {
 			location = Direction.combine((Expression<Direction>) exprs[1], (Expression<Location>) exprs[2]);
 			duration = (Expression<Timespan>) exprs[3];
 		} else {
+			isFollowing = true;
 			if (!Utils.hasProtocolLib()) {
 				Skript.error("The following hologram feature requires ProtocolLib");
 				return false;
