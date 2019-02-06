@@ -44,7 +44,7 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 	static {
 		Skript.registerExpression(ExprHologramLines.class, HologramLine.class, ExpressionType.PROPERTY,
 				"[all] [the] lines of [holo[gram][s]] %holograms%",
-				"[holo[gram][s]] %holograms%'[s] [all] lines",
+				"%holograms%'[s] [all] lines",
 				"[the] line %number% of [holo[gram][s]] %holograms%",
 				"[the] %number%(st|nd|rd|th) line[s] of [holo[gram][s]] %holograms%",
 				"[the] (first|1¦last) line[s] of [holo[gram][s]] %holograms%");

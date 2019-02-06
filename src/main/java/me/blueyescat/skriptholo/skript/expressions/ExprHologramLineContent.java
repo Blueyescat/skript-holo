@@ -36,15 +36,17 @@ import me.blueyescat.skriptholo.skript.Types;
 @Description({"Returns content (text or item) of a hologram line. " +
 		"Please note that there are hologram line to text and item converters so you can use a hologram line " +
 		"like a text or an item (e.g. give first line of holo to player)"})
-@Examples({"TODO"})
+@Examples({"give items in lines of last created hologram to player",
+		"message text of line 3 of {_holo}",
+		"set {_contents::*} to contents of all lines of {_holo0"})
 @Since("0.1.0")
 @SuppressWarnings({"unchecked"})
 public class ExprHologramLineContent<T> extends SimpleExpression<T> {
 
 	static {
 		Skript.registerExpression(ExprHologramLineContent.class, Object.class, ExpressionType.PROPERTY,
-				"[the] (content|1¦(text|string)|2¦item)[s] (of|in) [holo[gram]] [line[s]] %hologramlines%",
-				"[holo[gram]] [line[s]] %hologramlines%'[s] (content|1¦(text|string)|2¦item)[s]");
+				"[the] (content|1¦(text|string)|2¦item)[s] (of|in) [holo[gram] line[s]] %hologramlines%",
+				"%hologramlines%'[s] (content|1¦(text|string)|2¦item)[s]");
 	}
 
 	private final ExprHologramLineContent<?> source;

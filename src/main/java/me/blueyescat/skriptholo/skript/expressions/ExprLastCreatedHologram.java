@@ -27,7 +27,7 @@ import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
 @Description({"Holds the hologram that was created most recently with the create hologram effect.",
 		"Can be deleted using the `delete/clear` changer which means the hologram will be " +
 		"removed from the world and this expression will be empty."})
-@Examples({"set {_holo} to the created hologram"})
+@Examples("set {_holo} to the created hologram")
 @Since("0.1.0")
 public class ExprLastCreatedHologram extends SimpleExpression<Hologram> {
 
