@@ -47,7 +47,7 @@ public class ExprHologramLineContent<T> extends SimpleExpression<T> {
 				"[holo[gram]] [line[s]] %hologramlines%'[s] (content|1¦(text|string)|2¦item)[s]");
 	}
 
-	private ExprHologramLineContent<?> source;
+	private final ExprHologramLineContent<?> source;
 	private final Class<T> superType;
 
 	private Expression<HologramLine> lines;
@@ -90,7 +90,7 @@ public class ExprHologramLineContent<T> extends SimpleExpression<T> {
 					contents.add(((TextLine) line).getText());
 			} else if (line instanceof ItemLine) {
 				if (type == 0 || type == 2)
-					contents.add(((ItemLine) line).getItemStack());
+					contents.add(new ItemType(((ItemLine) line).getItemStack()));
 			}
 		}
 		try {
