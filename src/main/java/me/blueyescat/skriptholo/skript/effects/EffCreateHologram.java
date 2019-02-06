@@ -36,7 +36,7 @@ import me.blueyescat.skriptholo.util.Utils;
  * @author Blueyescat
  */
 @Name("Create Hologram")
-@Description({"Creates a new hologram. The `Last Created Hologram` expression can be used to get the created hologram."})
+@Description("Creates a new hologram. The `Last Created Hologram` expression can be used to get the created hologram.")
 @Examples({"create a new hologram with line \"test\"",
 		"create holo with line \"test\" at the targeted entity",
 		"create new hologram with line \"test\" that follows player for 10 seconds",
@@ -112,7 +112,7 @@ public class EffCreateHologram extends Effect {
 				if (line instanceof String) {
 					holo.appendTextLine((String) line);
 				} else if (line instanceof ItemType) {
-					for (final ItemStack item : ((ItemType) line).getItem().getAll())
+					for (ItemStack item : ((ItemType) line).getItem().getAll())
 						holo.appendItemLine(item);
 				}
 			}

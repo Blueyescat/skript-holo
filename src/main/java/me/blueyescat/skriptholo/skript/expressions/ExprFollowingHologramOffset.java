@@ -29,7 +29,7 @@ import me.blueyescat.skriptholo.SkriptHolo;
  * @author Blueyescat
  */
 @Name("Following Hologram Offset")
-@Description({"Returns offset of a following hologram. Can be set."})
+@Description("Returns offset of a following hologram. Can be set.")
 @Examples("delete offset of last holo" +
 		"set following offset of {_hologram} to vector(0.5, 2.5, 0)")
 @Since("0.1.0")

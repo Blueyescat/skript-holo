@@ -21,8 +21,12 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
  * @author Blueyescat
  */
 @Name("Add Hologram Line")
-@Description({"TODO"})
-@Examples({"TODO"})
+@Description("Adds new lines to a hologram. " +
+		"`insert` means adding after the specified line and moving the next lines below.")
+@Examples({"prepend \"<light green>Test\" to the created hologram",
+		"append a stone to {_holo}",
+		"insert lines \"&cRedstone\" and a redstone in holo at line 2",
+		"insert every diamond armor into the hologram at the 5th line"})
 @Since("0.1.0")
 public class EffAddHologramLine extends Effect {
 
@@ -75,16 +79,16 @@ public class EffAddHologramLine extends Effect {
 						li = 0;
 					if (line instanceof String) {
 						holo.insertTextLine(li, (String) line);
+						li++;
 					} else if (line instanceof ItemType) {
-						for (final ItemStack item : ((ItemType) line).getItem().getAll())
-							holo.insertItemLine(li, item);
+						for (ItemStack item : ((ItemType) line).getItem().getAll())
+							holo.insertItemLine(li++, item);
 					}
-					li++;
 				} else {
 					if (line instanceof String) {
 						holo.appendTextLine((String) line);
 					} else if (line instanceof ItemType) {
-						for (final ItemStack item : ((ItemType) line).getItem().getAll())
+						for (ItemStack item : ((ItemType) line).getItem().getAll())
 							holo.appendItemLine(item);
 					}
 				}

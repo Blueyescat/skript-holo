@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.event.Event;
+import org.bukkit.inventory.ItemStack;
 import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.Skript;
@@ -34,7 +35,7 @@ import me.blueyescat.skriptholo.util.Utils;
  * @author Blueyescat
  */
 @Name("Hologram Lines")
-@Description({"Returns all lines of a hologram."})
+@Description("Returns all lines of a hologram.")
 @Examples({"loop lines of the last created hologram:",
 		"\tif loop-hologram line is item line:",
 		"\t\tdelete loop-hologram line"})
@@ -137,7 +138,8 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 							if (o instanceof String)
 								holo.appendTextLine((String) o);
 							else
-								holo.appendItemLine(((ItemType) o).getItem().getRandom());
+								for (ItemStack item : ((ItemType) o).getItem().getAll())
+									holo.appendItemLine(item);
 						}
 					}
 					break;
@@ -155,8 +157,9 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 									}
 								} else {
 									if (removedLine instanceof ItemLine) {
-										if (Comparators.compare(((ItemLine) removedLine).getItemStack(), o).is(Comparator.Relation.EQUAL))
-											removedLine.removeLine();
+										for (ItemStack item : ((ItemType) o).getItem().getAll())
+											if (Comparators.compare(((ItemLine) removedLine).getItemStack(), item).is(Comparator.Relation.EQUAL))
+												removedLine.removeLine();
 									}
 								}
 							}
@@ -170,7 +173,8 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 							if (o instanceof String)
 								holo.appendTextLine((String) o);
 							else
-								holo.appendItemLine(((ItemType) o).getItem().getRandom());
+								for (ItemStack item : ((ItemType) o).getItem().getAll())
+									holo.appendItemLine(item);
 						}
 					}
 					break;
