@@ -70,7 +70,6 @@ public class EffCreateHologram extends Effect {
 			duration = (Expression<Timespan>) exprs[3];
 		} else {
 			isFollowing = true;
-			if (!Utils.hasProtocolLib()) {
 			if (!Utils.hasPlugin("ProtocolLib")) {
 				Skript.error("The following hologram feature requires ProtocolLib");
 				return false;
