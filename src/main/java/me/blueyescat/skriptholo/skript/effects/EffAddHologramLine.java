@@ -16,6 +16,9 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
+import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
+
+import me.blueyescat.skriptholo.util.Utils;
 
 /**
  * @author Blueyescat
@@ -32,9 +35,9 @@ public class EffAddHologramLine extends Effect {
 
 	static {
 		Skript.registerEffect(EffAddHologramLine.class,
-				"(prepend|1¦append) [line[s]] %-strings/itemtypes% to [holo[gram][s]] %holograms%",
-				"insert [line[s]] %-strings/itemtypes% in[to] [holo[gram][s]] %holograms% at line %number%",
-				"insert [line[s]] %-strings/itemtypes% in[to] [holo[gram][s]] %holograms% at [the] %number%(st|nd|rd|th) line");
+				"(prepend|1¦append) [(10¦interact|20¦(touch|click)|30¦pickup)[-]able] [line[s]] %-strings/itemtypes% to [holo[gram][s]] %holograms%",
+				"insert [(10¦interact|20¦(touch|click)|30¦pickup)[-]able] [line[s]] %-strings/itemtypes% in[to] [holo[gram][s]] %holograms% at line %number%",
+				"insert [(10¦interact|20¦(touch|click)|30¦pickup)[-]able] %-strings/itemtypes% in[to] [holo[gram][s]] %holograms% at [the] %number%(st|nd|rd|th) line");
 	}
 
 	private Expression<?> lines;
@@ -44,20 +47,30 @@ public class EffAddHologramLine extends Effect {
 	private static enum Modes {
 		PREPEND, APPEND, INSERT
 	}
-
 	private Modes mode;
+
+	private static enum InteractModes {
+		ALL, TOUCHABLE, PICKUPABLE
+	}
+	private InteractModes interactMode;
 
 	@Override
 	@SuppressWarnings({"unchecked"})
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		lines = exprs[0];
 		holograms = (Expression<Hologram>) exprs[1];
-		if (matchedPattern == 1) {
+		if (matchedPattern == 0) {
+			mode = parseResult.mark == 0 ? Modes.PREPEND : Modes.APPEND;
+		} else {
 			mode = Modes.INSERT;
 			line = (Expression<Number>) exprs[2];
-		} else {
-			mode = parseResult.mark == 0 ? Modes.PREPEND : Modes.APPEND;
 		}
+		if (parseResult.mark == 10 || parseResult.mark == 11)
+			interactMode = InteractModes.ALL;
+		else if (parseResult.mark == 20 || parseResult.mark == 21)
+			interactMode = InteractModes.TOUCHABLE;
+		else if (parseResult.mark == 30 || parseResult.mark == 31)
+			interactMode = InteractModes.PICKUPABLE;
 		return true;
 	}
 
@@ -76,23 +89,31 @@ public class EffAddHologramLine extends Effect {
 					continue;
 			}
 			for (Object line : lines.getArray(e)) {
+				HologramLine addedLine = null;
 				if (mode == Modes.PREPEND || mode == Modes.INSERT) {
 					if (mode == Modes.PREPEND)
 						li = 0;
 					if (line instanceof String) {
-						holo.insertTextLine(li, (String) line);
-						li++;
+						addedLine = holo.insertTextLine(li++, (String) line);
 					} else if (line instanceof ItemType) {
 						for (ItemStack item : ((ItemType) line).getItem().getAll())
-							holo.insertItemLine(li++, item);
+							addedLine = holo.insertItemLine(li++, item);
 					}
 				} else {
 					if (line instanceof String) {
-						holo.appendTextLine((String) line);
+						addedLine = holo.appendTextLine((String) line);
 					} else if (line instanceof ItemType) {
 						for (ItemStack item : ((ItemType) line).getItem().getAll())
-							holo.appendItemLine(item);
+							addedLine = holo.appendItemLine(item);
 					}
+				}
+				if (interactMode == InteractModes.ALL) {
+					Utils.addTouchHandler(addedLine);
+					Utils.addPickupHandler(addedLine);
+				} else if (interactMode == InteractModes.TOUCHABLE) {
+					Utils.addTouchHandler(addedLine);
+				} else if (interactMode == InteractModes.PICKUPABLE) {
+					Utils.addPickupHandler(addedLine);
 				}
 			}
 		}

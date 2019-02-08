@@ -28,6 +28,7 @@ import ch.njol.util.Kleenean;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
+import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 
 import me.blueyescat.skriptholo.SkriptHolo;
 import me.blueyescat.skriptholo.util.Utils;
@@ -47,8 +48,8 @@ public class EffCreateHologram extends Effect {
 
 	static {
 		Skript.registerEffect(EffCreateHologram.class,
-				"(create|spawn) [a] [new] holo[gram] [with line[s] %-strings/itemtypes%] [%direction% %location%] [for %-timespan%]",
-				"(create|spawn) [a] [new] holo[gram] [with line[s] %-strings/itemtypes%] that follows %entity% [with offset [(by|of)] %-vector%] [for %-timespan%]");
+				"(create|spawn) [a] [new] holo[gram] [with [(1¦interact|2¦(touch|click)|3¦pickup)[-]able] line[s] %-strings/itemtypes%] [%direction% %location%] [for %-timespan%]",
+				"(create|spawn) [a] [new] holo[gram] [with [(1¦interact|2¦(touch|click)|3¦pickup)[-]able] line[s] %-strings/itemtypes%] that follows %entity% [with offset [(by|of)] %-vector%] [for %-timespan%]");
 	}
 
 	private Expression<?> lines;
@@ -57,6 +58,11 @@ public class EffCreateHologram extends Effect {
 	private Expression<Vector> offset;
 	private Expression<Timespan> duration;
 	private boolean isFollowing;
+
+	private static enum InteractModes {
+		ALL, TOUCHABLE, PICKUPABLE
+	}
+	private InteractModes interactMode;
 
 	@Nullable
 	public static Hologram lastCreated = null;
@@ -78,6 +84,12 @@ public class EffCreateHologram extends Effect {
 			offset = (Expression<Vector>) exprs[2];
 			duration = (Expression<Timespan>) exprs[3];
 		}
+		if (parseResult.mark == 1)
+			interactMode = InteractModes.ALL;
+		else if (parseResult.mark == 2)
+			interactMode = InteractModes.TOUCHABLE;
+		else if (parseResult.mark == 3)
+			interactMode = InteractModes.PICKUPABLE;
 		return true;
 	}
 
@@ -109,11 +121,24 @@ public class EffCreateHologram extends Effect {
 		lastCreated = holo;
 		if (lines != null) {
 			for (Object line : lines.getArray(e)) {
+				HologramLine addedLine;
 				if (line instanceof String) {
-					holo.appendTextLine((String) line);
+					addedLine = holo.appendTextLine((String) line);
+					if (interactMode == InteractModes.ALL || interactMode == InteractModes.TOUCHABLE) {
+						Utils.addTouchHandler(addedLine);
+					}
 				} else if (line instanceof ItemType) {
-					for (ItemStack item : ((ItemType) line).getItem().getAll())
-						holo.appendItemLine(item);
+					for (ItemStack item : ((ItemType) line).getItem().getAll()) {
+						addedLine = holo.appendItemLine(item);
+						if (interactMode == InteractModes.ALL) {
+							Utils.addTouchHandler(addedLine);
+							Utils.addPickupHandler(addedLine);
+						} else if (interactMode == InteractModes.TOUCHABLE) {
+							Utils.addTouchHandler(addedLine);
+						} else if (interactMode == InteractModes.PICKUPABLE) {
+							Utils.addPickupHandler(addedLine);
+						}
+					}
 				}
 			}
 		}

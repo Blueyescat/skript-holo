@@ -4,14 +4,13 @@ import org.bukkit.inventory.ItemStack;
 import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.aliases.ItemType;
-import ch.njol.skript.classes.Changer;
-import ch.njol.skript.classes.ClassInfo;
-import ch.njol.skript.classes.Converter;
-import ch.njol.skript.classes.Parser;
-import ch.njol.skript.expressions.base.EventValueExpression;
+import ch.njol.skript.classes.*;
+import ch.njol.skript.classes.Comparator.Relation;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
+import ch.njol.skript.registrations.Comparators;
 import ch.njol.skript.registrations.Converters;
+import ch.njol.skript.util.slot.SlotWithIndex;
 import ch.njol.util.coll.CollectionUtils;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
@@ -39,7 +38,6 @@ public class Types {
 						"When you delete a hologram that is stored in a variable, the hologram object will still " +
 						"exist in the variable but will not be usable. You should delete the variable too in this case.")
 				.since("0.1.0")
-				.defaultExpression(new EventValueExpression<>(Hologram.class))
 				.changer(new Changer<Hologram>() {
 					@Override
 					public Class<?>[] acceptChange(ChangeMode mode) {
@@ -147,7 +145,6 @@ public class Types {
 				.name("Hologram Line")
 				.description("A line of a HolographicDisplays hologram. Can be deleted using the 'delete/clear' changer.")
 				.since("0.1.0")
-				.defaultExpression(new EventValueExpression<>(HologramLine.class))
 				.changer(hologramLineChanger)
 				.parser(new Parser<HologramLine>() {
 					@Override
@@ -177,6 +174,23 @@ public class Types {
 
 		Converters.registerConverter(TextLine.class, String.class, (Converter<TextLine, String>) TextLine::getText);
 		Converters.registerConverter(ItemLine.class, ItemStack.class, (Converter<ItemLine, ItemStack>) ItemLine::getItemStack);
+
+		Comparators.registerComparator(HologramLine.class, Number.class, new Comparator<HologramLine, Number>() {
+			@Override
+			public Relation compare(HologramLine line, Number lineNumber) {
+				Hologram holo = line.getParent();
+				for (int l = 0; l < holo.size(); l++) {
+					if (holo.getLine(l).equals(line) && l == lineNumber.intValue() - 1)
+						return Relation.EQUAL;
+				}
+				return Relation.NOT_EQUAL;
+			}
+
+			@Override
+			public boolean supportsOrdering() {
+				return false;
+			}
+		});
 
 	}
 
