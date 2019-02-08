@@ -37,7 +37,7 @@ public class Types {
 				.description("A HolographicDisplays hologram. Can be deleted using the `delete/clear` changer or " +
 						"can be reset using the `reset` changer." +
 						"When you delete a hologram that is stored in a variable, the hologram object will still " +
-						"exist in the variable but will not be usable. You should delete the variable in this case.")
+						"exist in the variable but will not be usable. You should delete the variable too in this case.")
 				.since("0.1.0")
 				.defaultExpression(new EventValueExpression<>(Hologram.class))
 				.changer(new Changer<Hologram>() {
@@ -52,11 +52,11 @@ public class Types {
 					public void change(Hologram[] holograms, @Nullable Object[] delta, ChangeMode mode) {
 						if (mode == ChangeMode.DELETE) {
 							for (Hologram holo : holograms) {
-								if (!holo.isDeleted()) {
-									holo.delete();
-									if (holo.equals(EffCreateHologram.lastCreated))
-										EffCreateHologram.lastCreated = null;
-								}
+								if (holo.isDeleted())
+									continue;
+								holo.delete();
+								if (holo.equals(EffCreateHologram.lastCreated))
+									EffCreateHologram.lastCreated = null;
 							}
 						} else {
 							for (Hologram holo : holograms) {

@@ -64,6 +64,8 @@ public class EffAddHologramLine extends Effect {
 	@Override
 	protected void execute(Event e) {
 		for (Hologram holo : holograms.getArray(e)) {
+			if (holo.isDeleted())
+				continue;
 			int li = 0;
 			if (mode == Modes.INSERT) {
 				Number l = this.line.getSingle(e);

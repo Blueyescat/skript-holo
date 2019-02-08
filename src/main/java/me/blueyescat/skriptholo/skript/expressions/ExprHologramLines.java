@@ -134,6 +134,8 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 			switch (mode) {
 				case ADD:
 					for (Hologram holo : holograms.getArray(e)) {
+						if (holo.isDeleted())
+							continue;
 						for (Object o : delta) {
 							if (o instanceof String)
 								holo.appendTextLine((String) o);
@@ -147,6 +149,8 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 				case REMOVE_ALL:
 					HologramLine removedLine;
 					for (Hologram holo : holograms.getArray(e)) {
+						if (holo.isDeleted())
+							continue;
 						for (int line = 0; line < holo.size(); line++) {
 							removedLine = holo.getLine(line);
 							for (Object o : delta) {
@@ -168,6 +172,8 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 					break;
 				case SET:
 					for (Hologram holo : holograms.getArray(e)) {
+						if (holo.isDeleted())
+							continue;
 						holo.clearLines();
 						for (Object o : delta) {
 							if (o instanceof String)
@@ -181,7 +187,8 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 				case DELETE:
 				case RESET:
 					for (Hologram holo : holograms.getArray(e))
-						holo.clearLines();
+						if (!holo.isDeleted())
+							holo.clearLines();
 			}
 		// Single lines will use changers of the HologramLine type
 		} else {

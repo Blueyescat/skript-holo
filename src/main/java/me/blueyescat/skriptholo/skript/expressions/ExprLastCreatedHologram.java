@@ -24,7 +24,7 @@ import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
  * @author Blueyescat
  */
 @Name("Last Created Hologram")
-@Description({"Holds the hologram that was created most recently with the create hologram effect.",
+@Description({"Holds the hologram that was created most recently with the `Create Hologram` effect.",
 		"Can be deleted using the `delete/clear` changer which means the hologram will be " +
 		"removed from the world and this expression will be empty."})
 @Examples("set {_holo} to the created hologram")
@@ -48,16 +48,21 @@ public class ExprLastCreatedHologram extends SimpleExpression<Hologram> {
 
 	@Override
 	public Class<?>[] acceptChange(ChangeMode mode) {
-		if (mode == ChangeMode.DELETE)
+		if (mode == ChangeMode.DELETE || mode == ChangeMode.RESET)
 			return CollectionUtils.array();
 		return null;
 	}
 
 	@Override
 	public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
-		if (!EffCreateHologram.lastCreated.isDeleted())
+		if (EffCreateHologram.lastCreated.isDeleted())
+			return;
+		if (mode == ChangeMode.DELETE) {
 			EffCreateHologram.lastCreated.delete();
-		EffCreateHologram.lastCreated = null;
+			EffCreateHologram.lastCreated = null;
+		} else {
+			EffCreateHologram.lastCreated.clearLines();
+		}
 	}
 
 	@Override
