@@ -71,6 +71,7 @@ public class EffCreateHologram extends Effect {
 		} else {
 			isFollowing = true;
 			if (!Utils.hasProtocolLib()) {
+			if (!Utils.hasPlugin("ProtocolLib")) {
 				Skript.error("The following hologram feature requires ProtocolLib");
 				return false;
 			}
