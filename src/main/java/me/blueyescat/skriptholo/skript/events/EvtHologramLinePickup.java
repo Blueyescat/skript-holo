@@ -19,8 +19,8 @@ public class EvtHologramLinePickup extends SkriptEvent {
 
 	static {
 		Skript.registerEvent("Hologram Line Pickup", EvtHologramLinePickup.class, HologramLineTouchEvent.class,
-				"holo[gram] [line] pick[ ]up")
-				.description("Called when a player tries to pickup a pickupable hologram line. " +
+				"holo[gram] [line] pick[( |-)]up")
+				.description("Called when a player tries to pickup a pickup-able hologram line. " +
 						"Note that actually the item will not be picked up, so this event will be called every ticks " +
 						"while a player is trying to pickup the item. See the `Make Hologram Line Pickup-able` effect.`")
 				.examples("on hologram pickup:",

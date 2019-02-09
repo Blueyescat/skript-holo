@@ -24,14 +24,14 @@ import me.blueyescat.skriptholo.util.Utils;
 @Name("Make Hologram Line Pickup-able")
 @Description("Makes a hologram line pickup-able or non-pickup-able. " +
 		"An **non-**pickup-able line won't trigger the `Hologram Line Pickup` event.")
-@Examples({"make line 1 of hologram pickup-abwwwwwwwwwwwwwle",
+@Examples({"make line 1 of hologram pickup-able",
 		"make lines of {_holo} non-pickup-able"})
 @Since("1.0.0")
 public class EffMakeHologramLinePickupable extends Effect {
 
 	static {
 		Skript.registerEffect(EffMakeHologramLinePickupable.class,
-				"make [holo[gram] line[s]] %hologramlines% [(1¦(non[-]|un))]pickup[-]able");
+				"make [holo[gram] line[s]] %hologramlines% [(1¦(non[-]|un))]pick[( |-)]up[-]able");
 	}
 
 	private Expression<HologramLine> lines;

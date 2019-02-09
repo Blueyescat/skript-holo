@@ -31,7 +31,7 @@ public class EffMakeHologramLineTouchable extends Effect {
 
 	static {
 		Skript.registerEffect(EffMakeHologramLineTouchable.class,
-				"make [holo[gram] line[s]] %hologramlines% [(1¦(un|non[-]))](touchable|click[-]able)");
+				"make [holo[gram] line[s]] %hologramlines% [(1¦(un|non[-]))](touch|click)[-]able");
 	}
 
 	private Expression<HologramLine> lines;
