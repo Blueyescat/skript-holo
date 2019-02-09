@@ -24,9 +24,9 @@ import me.blueyescat.skriptholo.util.Utils;
 @Name("Make Hologram Line Pickup-able")
 @Description("Makes a hologram line pickup-able or non-pickup-able. " +
 		"An **non-**pickup-able line won't trigger the `Hologram Line Pickup` event.")
-@Examples({"make line 1 of hologram pickup-able",
+@Examples({"make line 1 of hologram pickup-abwwwwwwwwwwwwwle",
 		"make lines of {_holo} non-pickup-able"})
-@Since("0.1.0")
+@Since("1.0.0")
 public class EffMakeHologramLinePickupable extends Effect {
 
 	static {
@@ -38,7 +38,7 @@ public class EffMakeHologramLinePickupable extends Effect {
 	private boolean pickupable;
 
 	@Override
-	@SuppressWarnings({"unchecked"})
+	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		lines = (Expression<HologramLine>) exprs[0];
 		pickupable = parseResult.mark == 0;

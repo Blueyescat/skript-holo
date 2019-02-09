@@ -39,7 +39,7 @@ import me.blueyescat.skriptholo.util.Utils;
 @Examples({"loop lines of the last created hologram:",
 		"\tif loop-hologram line is item line:",
 		"\t\tdelete loop-hologram line"})
-@Since("0.1.0")
+@Since("1.0.0")
 public class ExprHologramLines extends SimpleExpression<HologramLine> {
 
 	static {
@@ -57,7 +57,7 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 	private boolean isSingle = true;
 
 	@Override
-	@SuppressWarnings({"unchecked"})
+	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		// All lines
 		Skript.info(String.valueOf(matchedPattern));

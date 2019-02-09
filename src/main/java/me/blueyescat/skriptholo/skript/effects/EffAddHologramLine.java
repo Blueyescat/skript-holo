@@ -30,7 +30,7 @@ import me.blueyescat.skriptholo.util.Utils;
 		"append a stone to {_holo}",
 		"insert lines \"&cRedstone\" and a redstone in holo at line 2",
 		"insert every diamond armor into the hologram at the 5th line"})
-@Since("0.1.0")
+@Since("1.0.0")
 public class EffAddHologramLine extends Effect {
 
 	static {
@@ -55,7 +55,7 @@ public class EffAddHologramLine extends Effect {
 	private InteractModes interactMode;
 
 	@Override
-	@SuppressWarnings({"unchecked"})
+	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		lines = exprs[0];
 		holograms = (Expression<Hologram>) exprs[1];

@@ -30,7 +30,7 @@ import me.blueyescat.skriptholo.util.Utils;
 @Name("All Holograms")
 @Description("Returns all the holograms created by skript-holo or other plugins except HolographicDisplays.")
 @Examples("loop all holograms:")
-@Since("0.1.0")
+@Since("1.0.0")
 public class ExprHolograms extends SimpleExpression<Hologram> {
 
 	static {

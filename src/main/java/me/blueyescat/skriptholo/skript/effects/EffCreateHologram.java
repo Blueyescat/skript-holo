@@ -43,7 +43,7 @@ import me.blueyescat.skriptholo.util.Utils;
 		"create new hologram with line \"test\" that follows player for 10 seconds",
 		"create holo with line \"test\" that follows the player with offset by vector(0, 2.4, 0) for 10 seconds",
 		"create a hologram with lines \"&bDiamond Armor\" and every diamond armor"})
-@Since("0.1.0")
+@Since("1.0.0")
 public class EffCreateHologram extends Effect {
 
 	static {
@@ -68,7 +68,7 @@ public class EffCreateHologram extends Effect {
 	public static Hologram lastCreated = null;
 
 	@Override
-	@SuppressWarnings({"unchecked"})
+	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		lines = exprs[0];
 		if (matchedPattern == 0) {

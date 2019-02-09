@@ -32,7 +32,7 @@ import me.blueyescat.skriptholo.SkriptHolo;
 @Description("Returns offset of a following hologram. Can be set.")
 @Examples("delete offset of last holo" +
 		"set following offset of {_hologram} to vector(0.5, 2.5, 0)")
-@Since("0.1.0")
+@Since("1.0.0")
 public class ExprFollowingHologramOffset extends SimpleExpression<Vector> {
 
 	static {
@@ -44,7 +44,7 @@ public class ExprFollowingHologramOffset extends SimpleExpression<Vector> {
 	private Expression<Hologram> holograms;
 
 	@Override
-	@SuppressWarnings({"unchecked"})
+	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		holograms = (Expression<Hologram>) exprs[0];
 		return true;
@@ -74,7 +74,7 @@ public class ExprFollowingHologramOffset extends SimpleExpression<Vector> {
 	}
 
 	@Override
-	@SuppressWarnings({"unchecked"})
+	@SuppressWarnings("unchecked")
 	public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
 		for (Hologram holo : holograms.getArray(e)) {
 			for (int entityID : SkriptHolo.followingHolograms.keySet()) {

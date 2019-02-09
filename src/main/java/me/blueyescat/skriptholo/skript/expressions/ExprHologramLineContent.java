@@ -39,8 +39,8 @@ import me.blueyescat.skriptholo.skript.Types;
 @Examples({"give items in lines of last created hologram to player",
 		"message text of line 3 of {_holo}",
 		"set {_contents::*} to contents of all lines of {_holo0"})
-@Since("0.1.0")
-@SuppressWarnings({"unchecked"})
+@Since("1.0.0")
+@SuppressWarnings("unchecked")
 public class ExprHologramLineContent<T> extends SimpleExpression<T> {
 
 	static {

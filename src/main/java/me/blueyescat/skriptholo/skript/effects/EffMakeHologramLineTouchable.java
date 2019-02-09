@@ -26,7 +26,7 @@ import me.blueyescat.skriptholo.util.Utils;
 		"An **un**touchable line won't trigger the `Hologram Line Touch` event.")
 @Examples({"make line 1 of last holo click-able",
 		"make all lines of {_holo} untouchable"})
-@Since("0.1.0")
+@Since("1.0.0")
 public class EffMakeHologramLineTouchable extends Effect {
 
 	static {
@@ -38,7 +38,7 @@ public class EffMakeHologramLineTouchable extends Effect {
 	private boolean touchable;
 
 	@Override
-	@SuppressWarnings({"unchecked"})
+	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		lines = (Expression<HologramLine>) exprs[0];
 		touchable = parseResult.mark == 0;

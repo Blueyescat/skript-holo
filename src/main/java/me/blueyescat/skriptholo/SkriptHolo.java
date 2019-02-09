@@ -161,21 +161,6 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 					}
 				});
 
-		/*
-		protocolManager.addPacketListener(
-				new PacketAdapter(getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.SPAWN_ENTITY,
-						PacketType.Play.Server.SPAWN_ENTITY_EXPERIENCE_ORB, PacketType.Play.Server.SPAWN_ENTITY_LIVING,
-						PacketType.Play.Server.SPAWN_ENTITY_PAINTING, PacketType.Play.Server.SPAWN_ENTITY_WEATHER,
-						PacketType.Play.Server.NAMED_ENTITY_SPAWN) {
-					@Override
-					public void onPacketSending(PacketEvent event) {
-						Entity entity = event.getPacket().getEntityModifier(event).getValues().get(0);
-						List<Entity> entityList = entitiesFollowedByHolograms.get(entityID);
-						deleteFollowingHolograms(entity);
-					}
-				});
-		*/
-
 		new BukkitRunnable() {
 			@SuppressWarnings("unchecked")
 			@Override

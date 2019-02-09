@@ -26,7 +26,7 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 		"will still exist in the variable but will not be usable. You should delete the variable too in this case."})
 @Examples({"delete holo {_var}",
 		"remove holograms {_holograms::*}"})
-@Since("0.1.0")
+@Since("1.0.0")
 public class EffDeleteHologram extends Effect {
 
 	static {
@@ -37,7 +37,7 @@ public class EffDeleteHologram extends Effect {
 	private Expression<Hologram> holograms;
 
 	@Override
-	@SuppressWarnings({"unchecked"})
+	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		holograms = (Expression<Hologram>) exprs[0];
 		return true;
