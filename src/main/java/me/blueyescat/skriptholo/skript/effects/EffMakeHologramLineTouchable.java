@@ -48,9 +48,8 @@ public class EffMakeHologramLineTouchable extends Effect {
 	@Override
 	protected void execute(Event e) {
 		if (touchable) {
-			for (HologramLine line : lines.getArray(e)) {
+			for (HologramLine line : lines.getArray(e))
 				Utils.addTouchHandler(line);
-			}
 		} else {
 			for (HologramLine line : lines.getArray(e)) {
 				TouchableLine tl = (TouchableLine) line;

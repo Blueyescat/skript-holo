@@ -48,9 +48,8 @@ public class EffMakeHologramLinePickupable extends Effect {
 	@Override
 	protected void execute(Event e) {
 		if (pickupable) {
-			for (HologramLine line : lines.getArray(e)) {
+			for (HologramLine line : lines.getArray(e))
 				Utils.addPickupHandler(line);
-			}
 		} else {
 			for (HologramLine line : lines.getArray(e)) {
 				CollectableLine cl = (CollectableLine) line;

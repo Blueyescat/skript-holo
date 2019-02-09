@@ -94,7 +94,7 @@ public class ExprFollowingHologramOffset extends SimpleExpression<Vector> {
 
 	@Override
 	public boolean isSingle() {
-		return true;
+		return holograms.isSingle();
 	}
 
 	@Override
