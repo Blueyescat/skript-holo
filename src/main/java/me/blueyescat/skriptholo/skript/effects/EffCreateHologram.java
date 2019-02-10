@@ -1,10 +1,5 @@
 package me.blueyescat.skriptholo.skript.effects;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -144,21 +139,7 @@ public class EffCreateHologram extends Effect {
 		}
 		if (isFollowing) {
 			assert entity != null;
-			Map<Hologram, Vector> holoMap;
-			int entityID = entity.getEntityId();
-			holoMap = SkriptHolo.followingHolograms.get(entityID);
-			if (holoMap == null)
-				holoMap = new HashMap<>();
-			holoMap.put(holo, offset);
-			SkriptHolo.followingHolograms.put(entityID, holoMap);
-
-			List<Hologram> holoList;
-			holoList = SkriptHolo.followingHologramsEntities.get(entity);
-			if (holoList == null)
-				holoList = new ArrayList<>();
-			holoList.add(holo);
-			SkriptHolo.followingHologramsEntities.put(entity, holoList);
-
+			Utils.makeHologramStartFollowing(holo, entity, offset);
 			SkriptHolo.startFollowingHologramTasks();
 		}
 		if (duration != null) {
@@ -175,8 +156,8 @@ public class EffCreateHologram extends Effect {
 					+ location.toString(e, debug) + (duration != null ? " for " + duration.toString(e, debug) : "");
 		else
 			return "create hologram" + (lines != null ? (" with lines " + lines.toString(e, debug)) : "")
-					+ " that follows " + entity.toString(e, debug) + (duration != null ? " for "
-					+ duration.toString(e, debug) : "");
+					+ " that follows " + entity.toString(e, debug) + (offset != null ? " with offset by "
+					+ offset.toString(e, debug) : "") + (duration != null ? " for " + duration.toString(e, debug) : "");
 	}
 
 }

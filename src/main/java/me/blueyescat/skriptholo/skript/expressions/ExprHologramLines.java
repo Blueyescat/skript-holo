@@ -60,7 +60,6 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		// All lines
-		Skript.info(String.valueOf(matchedPattern));
 		if (matchedPattern <= 1) {
 			holograms = (Expression<Hologram>) exprs[0];
 			isSingle = false;

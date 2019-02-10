@@ -1,9 +1,7 @@
 package me.blueyescat.skriptholo;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
@@ -29,7 +27,9 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
+import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
 import me.blueyescat.skriptholo.util.Metrics;
+import me.blueyescat.skriptholo.util.Utils;
 
 /**
  * @author Blueyescat
@@ -39,9 +39,10 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 	private static SkriptHolo instance;
 	private static SkriptAddon addonInstance;
 
-	private static boolean startedFollowingHologramTasks = false;
+	public static boolean startedFollowingHologramTasks = false;
 	public static Map<Integer, Map<Hologram, Vector>> followingHolograms = new HashMap<>();
 	public static Map<Entity, List<Hologram>> followingHologramsEntities = new ConcurrentHashMap<>();
+	public static Set<Hologram> followingHologramsList = new HashSet<>();
 
 	public SkriptHolo() {
 		if (instance == null)
@@ -108,9 +109,8 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 		for (Object o : holoMap.entrySet()) {
 			Map.Entry entry = (Map.Entry) o;
 			Hologram holo = (Hologram) entry.getKey();
-			holo.delete();
+			Utils.deleteHologram(entityID, holo);
 		}
-		followingHolograms.remove(entityID);
 	}
 
 	public static void startFollowingHologramTasks() {
@@ -162,15 +162,20 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 				});
 
 		new BukkitRunnable() {
-			@SuppressWarnings("unchecked")
 			@Override
+			@SuppressWarnings("unchecked")
 			public void run() {
 				for (Object o : followingHologramsEntities.entrySet()) {
 					Map.Entry entry = (Map.Entry) o;
 					Entity entity = (Entity) entry.getKey();
 					if (!entity.isValid()) {
-						for (Hologram holo : (List<Hologram>) entry.getValue())
-							holo.delete();
+						for (Hologram holo : (List<Hologram>) entry.getValue()) {
+							if (!holo.isDeleted())
+								holo.delete();
+							if (holo.equals(EffCreateHologram.lastCreated))
+								EffCreateHologram.lastCreated = null;
+							SkriptHolo.followingHologramsList.remove(holo);
+						}
 						followingHologramsEntities.remove(entity);
 						followingHolograms.remove(entity.getEntityId());
 					}

@@ -15,6 +15,8 @@ import ch.njol.util.Kleenean;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
+import me.blueyescat.skriptholo.util.Utils;
+
 /**
  * @author Blueyescat
  */
@@ -45,11 +47,7 @@ public class EffDeleteHologram extends Effect {
 
 	@Override
 	protected void execute(Event e) {
-		for (Hologram holo : holograms.getArray(e)) {
-			holo.delete();
-			if (holo.equals(EffCreateHologram.lastCreated))
-				EffCreateHologram.lastCreated = null;
-		}
+		Utils.deleteHologram(holograms.getArray(e));
 	}
 
 	@Override

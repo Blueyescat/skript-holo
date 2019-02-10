@@ -27,9 +27,10 @@ import me.blueyescat.skriptholo.SkriptHolo;
  * @author Blueyescat
  */
 @Name("Followed Entity of Hologram")
-@Description("Returns the followed entity of a hologram. See the `Make Hologram Follow Entity` effect.")
-@Examples("kill the followed entity of last hologram" +
-		"set {_entities::*} to the entities followed by holograms {_list::*}")
+@Description("Returns the followed entity of a hologram. " +
+		"Use the `Following Hologram` effect to make an exiting hologram start/stop following an entity.")
+@Examples({"kill the followed entity of last hologram",
+		"set {_entities::*} to the entities followed by holograms {_list::*}"})
 @Since("1.0.0")
 public class ExprFollowedEntityByHologram extends SimpleExpression<Entity> {
 

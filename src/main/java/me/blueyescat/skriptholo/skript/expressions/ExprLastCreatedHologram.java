@@ -19,6 +19,7 @@ import ch.njol.util.coll.CollectionUtils;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
 import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
+import me.blueyescat.skriptholo.util.Utils;
 
 /**
  * @author Blueyescat
@@ -55,14 +56,7 @@ public class ExprLastCreatedHologram extends SimpleExpression<Hologram> {
 
 	@Override
 	public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
-		if (EffCreateHologram.lastCreated.isDeleted())
-			return;
-		if (mode == ChangeMode.DELETE) {
-			EffCreateHologram.lastCreated.delete();
-			EffCreateHologram.lastCreated = null;
-		} else {
-			EffCreateHologram.lastCreated.clearLines();
-		}
+		Utils.deleteHologram(EffCreateHologram.lastCreated);
 	}
 
 	@Override

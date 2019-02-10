@@ -5,12 +5,10 @@ import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.aliases.ItemType;
 import ch.njol.skript.classes.*;
-import ch.njol.skript.classes.Comparator.Relation;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.registrations.Comparators;
 import ch.njol.skript.registrations.Converters;
-import ch.njol.skript.util.slot.SlotWithIndex;
 import ch.njol.util.coll.CollectionUtils;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
@@ -18,6 +16,7 @@ import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 import com.gmail.filoghost.holographicdisplays.api.line.ItemLine;
 import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
 
+import me.blueyescat.skriptholo.SkriptHolo;
 import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
 import me.blueyescat.skriptholo.util.Utils;
 
@@ -49,13 +48,7 @@ public class Types {
 					@Override
 					public void change(Hologram[] holograms, @Nullable Object[] delta, ChangeMode mode) {
 						if (mode == ChangeMode.DELETE) {
-							for (Hologram holo : holograms) {
-								if (holo.isDeleted())
-									continue;
-								holo.delete();
-								if (holo.equals(EffCreateHologram.lastCreated))
-									EffCreateHologram.lastCreated = null;
-							}
+							Utils.deleteHologram(holograms);
 						} else {
 							for (Hologram holo : holograms) {
 								if (!holo.isDeleted())
