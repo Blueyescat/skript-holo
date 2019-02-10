@@ -47,9 +47,10 @@ public class EffFollowingHologram extends Effect {
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		holograms = (Expression<Hologram>) exprs[0];
 		negative = matchedPattern == 1;
-		if (!negative)
+		if (!negative) {
 			entity = (Expression<Entity>) exprs[1];
 			offset = (Expression<Vector>) exprs[2];
+		}
 		return true;
 	}
 
@@ -68,13 +69,13 @@ public class EffFollowingHologram extends Effect {
 				Vector offset = null;
 				if (this.offset != null)
 					offset = this.offset.getSingle(e);
+				assert entity != null;
 				Utils.makeHologramStartFollowing(holo, entity, offset);
 			}
 			SkriptHolo.startFollowingHologramTasks();
 		} else {
 			for (Hologram holo : holograms.getArray(e)) {
 				if (Utils.isFollowingHologram(holo))
-					System.out.println("test");
 					Utils.makeHologramStopFollowing(holo);
 			}
 		}

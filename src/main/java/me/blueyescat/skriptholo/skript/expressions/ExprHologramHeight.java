@@ -24,7 +24,7 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
  */
 @Name("Hologram Height")
 @Description("Returns the physical height of a hologram.")
-@Examples("if difference between creation date of event-hologram and now is greater than a hour:")
+@Examples("set {_height} to height of holo {_hologram}")
 @Since("1.0.0")
 public class ExprHologramHeight extends SimpleExpression<Number> {
 
