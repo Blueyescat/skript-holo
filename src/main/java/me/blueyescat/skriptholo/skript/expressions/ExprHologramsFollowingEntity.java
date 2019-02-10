@@ -11,6 +11,7 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
@@ -21,6 +22,7 @@ import ch.njol.util.Kleenean;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
 import me.blueyescat.skriptholo.SkriptHolo;
+import me.blueyescat.skriptholo.util.Utils;
 
 /**
  * @author Blueyescat
@@ -31,6 +33,7 @@ import me.blueyescat.skriptholo.SkriptHolo;
 @Examples("delete the following holograms of targeted entity" +
 		"set {_holograms::*} to all holograms that follows the player")
 @Since("1.0.0")
+@RequiredPlugins("ProtocolLib")
 public class ExprHologramsFollowingEntity extends SimpleExpression<Hologram> {
 
 	static {
@@ -44,6 +47,10 @@ public class ExprHologramsFollowingEntity extends SimpleExpression<Hologram> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
+		if (!Utils.hasPlugin("ProtocolLib")) {
+			Skript.error("The following hologram feature requires ProtocolLib");
+			return false;
+		}
 		entities = (Expression<Entity>) exprs[0];
 		return true;
 	}

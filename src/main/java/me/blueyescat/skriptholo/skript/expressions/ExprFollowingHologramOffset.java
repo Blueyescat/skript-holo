@@ -13,6 +13,7 @@ import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
@@ -34,6 +35,7 @@ import me.blueyescat.skriptholo.util.Utils;
 @Examples("delete offset of last holo" +
 		"set following offset of {_hologram} to vector(0.5, 2.5, 0)")
 @Since("1.0.0")
+@RequiredPlugins("ProtocolLib")
 public class ExprFollowingHologramOffset extends SimpleExpression<Vector> {
 
 	static {
@@ -47,6 +49,10 @@ public class ExprFollowingHologramOffset extends SimpleExpression<Vector> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
+		if (!Utils.hasPlugin("ProtocolLib")) {
+			Skript.error("The following hologram feature requires ProtocolLib");
+			return false;
+		}
 		holograms = (Expression<Hologram>) exprs[0];
 		return true;
 	}

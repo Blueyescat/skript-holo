@@ -9,6 +9,7 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
@@ -29,6 +30,7 @@ import me.blueyescat.skriptholo.util.Utils;
 		"make all holograms stop following",
 		"let hologram {variable} start following event-entity"})
 @Since("1.0.0")
+@RequiredPlugins("ProtocolLib")
 public class EffFollowingHologram extends Effect {
 
 	static {
@@ -45,6 +47,10 @@ public class EffFollowingHologram extends Effect {
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
+		if (!Utils.hasPlugin("ProtocolLib")) {
+			Skript.error("The following hologram feature requires ProtocolLib");
+			return false;
+		}
 		holograms = (Expression<Hologram>) exprs[0];
 		negative = matchedPattern == 1;
 		if (!negative) {
