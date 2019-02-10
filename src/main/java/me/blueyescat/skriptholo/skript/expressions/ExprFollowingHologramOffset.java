@@ -24,6 +24,7 @@ import ch.njol.util.coll.CollectionUtils;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
 import me.blueyescat.skriptholo.SkriptHolo;
+import me.blueyescat.skriptholo.util.Utils;
 
 /**
  * @author Blueyescat
@@ -54,6 +55,8 @@ public class ExprFollowingHologramOffset extends SimpleExpression<Vector> {
 	protected Vector[] get(Event e) {
 		List<Vector> offsets = new ArrayList<>();
 		for (Hologram holo : holograms.getArray(e)) {
+			if (!Utils.isFollowingHologram(holo))
+				continue;
 			for (int entityID : SkriptHolo.followingHolograms.keySet()) {
 				Map<Hologram, Vector> holoMap = SkriptHolo.followingHolograms.get(entityID);
 				for (Object o : holoMap.entrySet()) {
@@ -77,6 +80,8 @@ public class ExprFollowingHologramOffset extends SimpleExpression<Vector> {
 	@SuppressWarnings("unchecked")
 	public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
 		for (Hologram holo : holograms.getArray(e)) {
+			if (!Utils.isFollowingHologram(holo))
+				continue;
 			for (int entityID : SkriptHolo.followingHolograms.keySet()) {
 				Map<Hologram, Vector> holoMap = SkriptHolo.followingHolograms.get(entityID);
 				for (Object o : holoMap.entrySet()) {

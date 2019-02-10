@@ -3,7 +3,6 @@ package me.blueyescat.skriptholo;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -53,11 +52,9 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 
 	@Override
 	public void onEnable() {
-		Logger logger = getLogger();
-
 		if (!Skript.isAcceptRegistrations()) {
 			getServer().getPluginManager().disablePlugin(this);
-			logger.severe("skript-holo can't be loaded when the server is already loaded! Plugin is disabled.");
+			getLogger().severe("skript-holo can't be loaded when the server is already loaded! Plugin is disabled.");
 			return;
 		}
 
@@ -73,8 +70,8 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 				Skript.getInstance().getDescription().getVersion()));
 		metrics.addCustomChart(new Metrics.SimplePie("holographicdisplays_version", () ->
 				getServer().getPluginManager().getPlugin("HolographicDisplays").getDescription().getVersion()));
-		logger.info("Started metrics!");
-		logger.info("Finished loading!");
+		getLogger().info("Started metrics!");
+		getLogger().info("Finished loading!");
 	}
 
 	@EventHandler
@@ -96,7 +93,7 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 			Location location = event.getTo().clone();
 			if (entry.getValue() != null)
 				location.add((Vector) entry.getValue());
-			if ((holo.getWorld() != location.getWorld()) ||
+			if ((holo.getWorld() == location.getWorld()) ||
 					(holo.getLocation().distance(location) != 0))
 				holo.teleport(location);
 		}
@@ -145,7 +142,7 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 							Location location = entity.getLocation().clone();
 							if (entry.getValue() != null)
 								location.add((Vector) entry.getValue());
-							if ((holo.getWorld() != location.getWorld()) ||
+							if ((holo.getWorld() == location.getWorld()) ||
 									(holo.getLocation().distance(location) != 0))
 								holo.teleport(location);
 						}

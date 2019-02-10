@@ -3,6 +3,7 @@ package me.blueyescat.skriptholo.util;
 import java.util.*;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
@@ -87,6 +88,12 @@ public class Utils {
 			holoList = new ArrayList<>();
 		holoList.add(holo);
 		SkriptHolo.followingHologramsEntities.put(entity, holoList);
+
+		Location location = entity.getLocation().clone();
+		if (offset != null)
+			location.add(offset);
+		if (holo.getWorld() == location.getWorld())
+			holo.teleport(location);
 	}
 
 	@SuppressWarnings("unchecked")
