@@ -46,9 +46,8 @@ public class ExprHologramHeight extends SimpleExpression<Number> {
 	@Override
 	protected Number[] get(Event e) {
 		List<Number> heights = new ArrayList<>();
-		for (Hologram holo : holograms.getArray(e)) {
+		for (Hologram holo : holograms.getArray(e))
 			heights.add(holo.getHeight());
-		}
 		return heights.toArray(new Number[0]);
 	}
 

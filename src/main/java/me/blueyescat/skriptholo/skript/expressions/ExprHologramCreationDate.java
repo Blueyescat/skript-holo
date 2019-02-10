@@ -47,9 +47,8 @@ public class ExprHologramCreationDate extends SimpleExpression<Date> {
 	@Override
 	protected Date[] get(Event e) {
 		List<Date> dates = new ArrayList<>();
-		for (Hologram holo : holograms.getArray(e)) {
+		for (Hologram holo : holograms.getArray(e))
 			dates.add(new Date(holo.getCreationTimestamp()));
-		}
 		return dates.toArray(new Date[0]);
 	}
 

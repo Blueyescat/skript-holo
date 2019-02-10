@@ -1,5 +1,6 @@
 package me.blueyescat.skriptholo.skript;
 
+import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -16,8 +17,6 @@ import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 import com.gmail.filoghost.holographicdisplays.api.line.ItemLine;
 import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
 
-import me.blueyescat.skriptholo.SkriptHolo;
-import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
 import me.blueyescat.skriptholo.util.Utils;
 
 /**
@@ -78,6 +77,8 @@ public class Types {
 						return "\\S+";
 					}
 				}));
+
+		Converters.registerConverter(Hologram.class, Location.class, (Converter<Hologram, Location>) Hologram::getLocation);
 
 		// Hologram Line
 		hologramLineChanger = new Changer<HologramLine>() {
