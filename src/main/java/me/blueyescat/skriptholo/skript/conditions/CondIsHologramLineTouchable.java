@@ -1,22 +1,3 @@
-/**
- *   This file is part of Skript.
- *
- *  Skript is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  Skript is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Skript.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * Copyright 2011-2017 Peter Güttinger and contributors
- */
 package me.blueyescat.skriptholo.skript.conditions;
 
 import org.bukkit.event.Event;
@@ -35,6 +16,9 @@ import ch.njol.util.Kleenean;
 import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 import com.gmail.filoghost.holographicdisplays.api.line.TouchableLine;
 
+/**
+ * @author Blueyescat
+ */
 @Name("Is Hologram Line Touchable")
 @Description("Checks whether the given hologram line is touchable.")
 @Examples("if line 3 of {_hologram} is touchable:")
@@ -49,8 +33,8 @@ public class CondIsHologramLineTouchable extends Condition {
 
 	private Expression<HologramLine> lines;
 
-	@SuppressWarnings("unchecked")
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		lines = (Expression<HologramLine>) exprs[0];
 		setNegated(matchedPattern == 1 ^ parseResult.mark == 1);
