@@ -104,12 +104,8 @@ public class ExprHologramLineContent<T> extends SimpleExpression<T> {
 
 	@Override
 	public Class<?>[] acceptChange(ChangeMode mode) {
-		switch (mode) {
-			case SET:
-			case DELETE:
-			case RESET:
-				return CollectionUtils.array(String.class, ItemType.class);
-		}
+		if (mode == ChangeMode.SET || mode == ChangeMode.DELETE || mode == ChangeMode.RESET)
+			return CollectionUtils.array(String.class, ItemType.class);
 		return null;
 	}
 
@@ -130,14 +126,12 @@ public class ExprHologramLineContent<T> extends SimpleExpression<T> {
 
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
-		switch (type) {
-			case 1:
-				return "the text of " + lines.toString(e, debug);
-			case 2:
-				return "the item of " + lines.toString(e, debug);
-			default:
-				return "the content of " + lines.toString(e, debug);
-		}
+		if (type == 1)
+			return "the text of " + lines.toString(e, debug);
+		if (type == 2)
+			return "the item of " + lines.toString(e, debug);
+		else
+			return "the content of " + lines.toString(e, debug);
 	}
 
 }

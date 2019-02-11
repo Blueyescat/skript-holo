@@ -35,7 +35,8 @@ import me.blueyescat.skriptholo.util.Utils;
  * @author Blueyescat
  */
 @Name("Hologram Lines")
-@Description("Returns all lines of a hologram.")
+@Description("Returns all lines of a hologram. Changeable, removing a text or an item means it will search lines " +
+		"that match exactly with the input and remove them.")
 @Examples({"loop lines of the last created hologram:",
 		"\tif loop-hologram line is item line:",
 		"\t\tdelete loop-hologram line"})
@@ -115,13 +116,8 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 				case RESET:
 					return CollectionUtils.array(String[].class, ItemType[].class);
 			}
-		} else {
-			switch (mode) {
-				case SET:
-				case DELETE:
-				case RESET:
-					return CollectionUtils.array(String.class, ItemType.class);
-			}
+		} else if (mode == ChangeMode.SET || mode == ChangeMode.DELETE || mode == ChangeMode.RESET) {
+			return CollectionUtils.array(String.class, ItemType.class);
 		}
 		return null;
 	}
@@ -136,11 +132,12 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 						if (holo.isDeleted())
 							continue;
 						for (Object o : delta) {
-							if (o instanceof String)
+							if (o instanceof String) {
 								holo.appendTextLine((String) o);
-							else
+							} else {
 								for (ItemStack item : ((ItemType) o).getItem().getAll())
 									holo.appendItemLine(item);
+							}
 						}
 					}
 					break;
@@ -160,9 +157,10 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 									}
 								} else {
 									if (removedLine instanceof ItemLine) {
-										for (ItemStack item : ((ItemType) o).getItem().getAll())
+										for (ItemStack item : ((ItemType) o).getItem().getAll()) {
 											if (Comparators.compare(((ItemLine) removedLine).getItemStack(), item).is(Comparator.Relation.EQUAL))
 												removedLine.removeLine();
+										}
 									}
 								}
 							}
