@@ -44,12 +44,12 @@ public class EffAddHologramLine extends Effect {
 	private Expression<Hologram> holograms;
 	private Expression<Number> line;
 
-	private static enum Modes {
+	private enum Modes {
 		PREPEND, APPEND, INSERT
 	}
 	private Modes mode;
 
-	private static enum InteractModes {
+	private enum InteractModes {
 		ALL, TOUCHABLE, PICKUPABLE
 	}
 	private InteractModes interactMode;

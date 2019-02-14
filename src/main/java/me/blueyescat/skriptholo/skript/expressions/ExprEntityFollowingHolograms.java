@@ -27,17 +27,17 @@ import me.blueyescat.skriptholo.util.Utils;
 /**
  * @author Blueyescat
  */
-@Name("Holograms Following Entity")
+@Name("Following Holograms of Entity")
 @Description("Returns the following holograms of an entity. " +
 		"Use the `Following Hologram` effect to make an exiting hologram start/stop following an entity.")
 @Examples("delete the following holograms of targeted entity" +
 		"set {_holograms::*} to all holograms that follows the player")
 @Since("1.0.0")
 @RequiredPlugins("ProtocolLib")
-public class ExprHologramsFollowingEntity extends SimpleExpression<Hologram> {
+public class ExprEntityFollowingHolograms extends SimpleExpression<Hologram> {
 
 	static {
-		Skript.registerExpression(ExprHologramsFollowingEntity.class, Hologram.class, ExpressionType.SIMPLE,
+		Skript.registerExpression(ExprEntityFollowingHolograms.class, Hologram.class, ExpressionType.SIMPLE,
 				"[all] [the] following holo[gram]s of %entities%",
 				"[all] [the] holo[gram]s (following|that follows) %entities%");
 	}

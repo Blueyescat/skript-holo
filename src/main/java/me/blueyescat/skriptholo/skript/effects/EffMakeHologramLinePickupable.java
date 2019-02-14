@@ -31,7 +31,7 @@ public class EffMakeHologramLinePickupable extends Effect {
 
 	static {
 		Skript.registerEffect(EffMakeHologramLinePickupable.class,
-				"make [holo[gram] line[s]] %hologramlines% [(1¦(non[-]|un))]pick[( |-)]up[-]able");
+				"(make|let) [holo[gram] line[s]] %hologramlines% [(1¦(non[-]|un))]pick[( |-)]up[-]able");
 	}
 
 	private Expression<HologramLine> lines;

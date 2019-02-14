@@ -59,7 +59,7 @@ public class EffCreateHologram extends Effect {
 	private boolean isFollowing;
 	private Variable<?> variable;
 
-	private static enum InteractModes {
+	private enum InteractModes {
 		ALL, TOUCHABLE, PICKUPABLE
 	}
 	private InteractModes interactMode;
