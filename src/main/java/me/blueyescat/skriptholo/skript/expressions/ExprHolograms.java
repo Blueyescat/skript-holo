@@ -24,9 +24,6 @@ import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import me.blueyescat.skriptholo.SkriptHolo;
 import me.blueyescat.skriptholo.util.Utils;
 
-/**
- * @author Blueyescat
- */
 @Name("All Holograms")
 @Description("Returns all the holograms created by skript-holo or other plugins except HolographicDisplays.")
 @Examples("loop all holograms:")

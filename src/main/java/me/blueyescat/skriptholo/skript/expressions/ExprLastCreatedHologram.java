@@ -21,9 +21,6 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
 import me.blueyescat.skriptholo.util.Utils;
 
-/**
- * @author Blueyescat
- */
 @Name("Last Created Hologram")
 @Description({"Holds the hologram that was created most recently with the `Create Hologram` effect.",
 		"Can be deleted using the `delete/clear` changer which means the hologram will be " +

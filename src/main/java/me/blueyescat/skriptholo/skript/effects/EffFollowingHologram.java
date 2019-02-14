@@ -21,9 +21,6 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import me.blueyescat.skriptholo.SkriptHolo;
 import me.blueyescat.skriptholo.util.Utils;
 
-/**
- * @author Blueyescat
- */
 @Name("Following Hologram")
 @Description("Makes a hologram start/stop following an entity.")
 @Examples({"make the last created hologram follow player",

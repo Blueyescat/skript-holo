@@ -27,9 +27,6 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import me.blueyescat.skriptholo.SkriptHolo;
 import me.blueyescat.skriptholo.util.Utils;
 
-/**
- * @author Blueyescat
- */
 @Name("Following Hologram Offset")
 @Description("Returns offset of a following hologram. Can be set.")
 @Examples("delete offset of last holo" +

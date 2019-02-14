@@ -23,9 +23,6 @@ import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
 
 import me.blueyescat.skriptholo.util.Utils;
 
-/**
- * @author Blueyescat
- */
 public class Types {
 
 	public static Changer<HologramLine> hologramLineChanger;

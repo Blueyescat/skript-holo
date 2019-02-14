@@ -10,9 +10,6 @@ import ch.njol.skript.doc.Since;
 
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 
-/**
- * @author Blueyescat
- */
 @Name("Is Hologram Entity")
 @Description("Checks whether the given entity is a part of a hologram. It is not possible to get the hologram.")
 @Examples({"if targeted entity is a part of a hologram:",

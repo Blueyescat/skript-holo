@@ -31,9 +31,6 @@ import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
 import me.blueyescat.skriptholo.skript.Types;
 import me.blueyescat.skriptholo.util.Utils;
 
-/**
- * @author Blueyescat
- */
 @Name("Hologram Lines")
 @Description("Returns all lines of a hologram. Changeable, removing a text or an item means it will search lines " +
 		"that match exactly with the input and remove them.")

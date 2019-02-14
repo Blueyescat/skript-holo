@@ -30,9 +30,6 @@ import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
 import me.blueyescat.skriptholo.util.Metrics;
 import me.blueyescat.skriptholo.util.Utils;
 
-/**
- * @author Blueyescat
- */
 public class SkriptHolo extends JavaPlugin implements Listener {
 
 	private static SkriptHolo instance;

@@ -17,9 +17,6 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
 import me.blueyescat.skriptholo.util.Utils;
 
-/**
- * @author Blueyescat
- */
 @Name("Is Following Hologram")
 @Description("Checks whether the given hologram is a following hologram.")
 @Examples("if {_holo} is a following hologram:")

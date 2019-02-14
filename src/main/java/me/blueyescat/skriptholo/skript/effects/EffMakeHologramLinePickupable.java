@@ -18,9 +18,6 @@ import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 
 import me.blueyescat.skriptholo.util.Utils;
 
-/**
- * @author Blueyescat
- */
 @Name("Make Hologram Line Pickup-able")
 @Description("Makes a hologram line pickup-able or non-pickup-able. " +
 		"An **non-**pickup-able line won't trigger the `Hologram Line Pickup` event.")
