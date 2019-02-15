@@ -7,12 +7,10 @@ import org.eclipse.jdt.annotation.Nullable;
 import ch.njol.skript.aliases.ItemType;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.classes.ClassInfo;
-import ch.njol.skript.classes.Comparator;
 import ch.njol.skript.classes.Converter;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
-import ch.njol.skript.registrations.Comparators;
 import ch.njol.skript.registrations.Converters;
 import ch.njol.util.coll.CollectionUtils;
 
@@ -138,7 +136,13 @@ public class Types {
 		Classes.registerClass(new ClassInfo<>(HologramLine.class, "hologramline")
 				.user("holo(gram)?( |-)?lines?")
 				.name("Hologram Line")
-				.description("A line of a HolographicDisplays hologram. Can be deleted using the 'delete/clear' changer.")
+				.description("A line of a HolographicDisplays hologram. Can be deleted using the 'delete/clear' changer.",
+						"",
+						"Has converters to `text`, `item type` and `number`. " +
+						"Converters mean that you can use this type like the converted types. " +
+						"For example you can do `if event-hologram-line is 5:` but please note that getting line " +
+						"number of a hologram line will check every line of the hologram. " +
+						"You shouldn't make systems that relies on line numbers, but contents.")
 				.since("0.1.0")
 				.changer(hologramLineChanger)
 				.parser(new Parser<HologramLine>() {
@@ -168,23 +172,15 @@ public class Types {
 				}));
 
 		Converters.registerConverter(TextLine.class, String.class, (Converter<TextLine, String>) TextLine::getText);
-		Converters.registerConverter(ItemLine.class, ItemStack.class, (Converter<ItemLine, ItemStack>) ItemLine::getItemStack);
-
-		Comparators.registerComparator(HologramLine.class, Number.class, new Comparator<HologramLine, Number>() {
-			@Override
-			public Relation compare(HologramLine line, Number lineNumber) {
-				Hologram holo = line.getParent();
-				for (int l = 0; l < holo.size(); l++) {
-					if (holo.getLine(l).equals(line) && l == lineNumber.intValue() - 1)
-						return Relation.EQUAL;
-				}
-				return Relation.NOT_EQUAL;
+		Converters.registerConverter(ItemLine.class, ItemType.class, (Converter<ItemLine, ItemType>) line ->
+				new ItemType(line.getItemStack()));
+		Converters.registerConverter(HologramLine.class, Number.class, (Converter<HologramLine, Number>) line -> {
+			Hologram holo = line.getParent();
+			for (int l = 0; l < holo.size(); l++) {
+				if (holo.getLine(l).equals(line))
+					return l + 1;
 			}
-
-			@Override
-			public boolean supportsOrdering() {
-				return false;
-			}
+			return null;
 		});
 
 	}
