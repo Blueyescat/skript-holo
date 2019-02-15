@@ -17,9 +17,6 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
 import me.blueyescat.skriptholo.util.Utils;
 
-/**
- * @author Blueyescat
- */
 @Name("Delete Hologram")
 @Description({"Deletes a hologram. The hologram type has the delete changer already but this exists for variables " +
 		"so `delete {_holo}` would delete the variable but you can do `delete hologram {_holo}` to avoid that.",

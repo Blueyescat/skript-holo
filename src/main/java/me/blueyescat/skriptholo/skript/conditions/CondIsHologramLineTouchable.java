@@ -16,9 +16,6 @@ import ch.njol.util.Kleenean;
 import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 import com.gmail.filoghost.holographicdisplays.api.line.TouchableLine;
 
-/**
- * @author Blueyescat
- */
 @Name("Is Hologram Line Touchable")
 @Description("Checks whether the given hologram line is touchable.")
 @Examples("if line 3 of {_hologram} is touchable:")

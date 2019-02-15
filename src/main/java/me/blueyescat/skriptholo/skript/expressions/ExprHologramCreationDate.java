@@ -20,9 +20,6 @@ import ch.njol.util.Kleenean;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
-/**
- * @author Blueyescat
- */
 @Name("Hologram Creation Date")
 @Description("Returns the creation date of a hologram.")
 @Examples("if difference between creation date of event-hologram and now is greater than a hour:")

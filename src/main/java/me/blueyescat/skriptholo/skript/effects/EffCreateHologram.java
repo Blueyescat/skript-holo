@@ -31,9 +31,6 @@ import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 import me.blueyescat.skriptholo.SkriptHolo;
 import me.blueyescat.skriptholo.util.Utils;
 
-/**
- * @author Blueyescat
- */
 @Name("Create Hologram")
 @Description("Creates a new hologram. Besides the `store in %variable%`, " +
 		"the `Last Created Hologram` expression can be used to get the created hologram.")

@@ -23,9 +23,6 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
 import me.blueyescat.skriptholo.SkriptHolo;
 
-/**
- * @author Blueyescat
- */
 @Name("Followed Entity of Hologram")
 @Description("Returns the followed entity of a hologram. " +
 		"Use the `Following Hologram` effect to make an exiting hologram start/stop following an entity.")

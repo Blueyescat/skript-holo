@@ -19,9 +19,6 @@ import ch.njol.util.Kleenean;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
-/**
- * @author Blueyescat
- */
 @Name("Hologram Height")
 @Description("Returns the physical height of a hologram.")
 @Examples("set {_height} to height of holo {_hologram}")

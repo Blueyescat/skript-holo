@@ -29,9 +29,6 @@ import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
 
 import me.blueyescat.skriptholo.skript.Types;
 
-/**
- * @author Blueyescat
- */
 @Name("Hologram Line Content")
 @Description({"Returns content (text or item) of a hologram line. " +
 		"Please note that there are hologram line to text and item converters so you can use a hologram line " +

@@ -2,6 +2,7 @@ package me.blueyescat.skriptholo.skript.conditions;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -66,7 +67,7 @@ public class CondCanSeeHologram extends Condition {
 	}
 
 	@Override
-	public String toString(Event e, boolean debug) {
+	public String toString(@Nullable Event e, boolean debug) {
 		return players.toString(e, debug) + " can " + (isNegated() ? "not " : "") + "see" + holograms.toString(e, debug);
 	}
 

@@ -20,9 +20,6 @@ import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 
 import me.blueyescat.skriptholo.util.Utils;
 
-/**
- * @author Blueyescat
- */
 @Name("Add Hologram Line")
 @Description("Adds new lines to a hologram. " +
 		"`insert` means adding after the specified line and moving the next lines below.")

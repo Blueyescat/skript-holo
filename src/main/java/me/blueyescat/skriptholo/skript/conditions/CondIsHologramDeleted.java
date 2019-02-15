@@ -15,9 +15,6 @@ import ch.njol.util.Kleenean;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
-/**
- * @author Blueyescat
- */
 @Name("Is Hologram Deleted")
 @Description("Checks whether the given hologram is deleted. " +
 		"When you delete a hologram that is stored in a variable, the hologram object will still " +

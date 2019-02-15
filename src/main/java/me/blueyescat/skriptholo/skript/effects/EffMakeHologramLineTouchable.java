@@ -18,9 +18,6 @@ import com.gmail.filoghost.holographicdisplays.api.line.TouchableLine;
 
 import me.blueyescat.skriptholo.util.Utils;
 
-/**
- * @author Blueyescat
- */
 @Name("Make Hologram Line Touchable")
 @Description("Makes a hologram line touchable or untouchable. " +
 		"An **un**touchable line won't trigger the `Hologram Line Touch` event.")

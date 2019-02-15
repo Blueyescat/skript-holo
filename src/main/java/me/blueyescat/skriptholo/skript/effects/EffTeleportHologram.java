@@ -17,9 +17,6 @@ import ch.njol.util.Kleenean;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
-/**
- * @author Blueyescat
- */
 @Name("Teleport Hologram")
 @Description("Teleports a hologram to a specific location.")
 @Examples({"teleport event-holo to the player",

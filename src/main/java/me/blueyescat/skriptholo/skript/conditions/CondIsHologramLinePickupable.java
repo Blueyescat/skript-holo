@@ -16,9 +16,6 @@ import ch.njol.util.Kleenean;
 import com.gmail.filoghost.holographicdisplays.api.line.CollectableLine;
 import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 
-/**
- * @author Blueyescat
- */
 @Name("Is Hologram Line Pickup-able")
 @Description("Checks whether the given hologram line is pickup-able.")
 @Examples("if line 3 of {_hologram} is pickup-able:")
