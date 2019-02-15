@@ -32,11 +32,16 @@ import me.blueyescat.skriptholo.skript.Types;
 import me.blueyescat.skriptholo.util.Utils;
 
 @Name("Hologram Lines")
-@Description("Returns all lines of a hologram. Changeable, removing a text or an item means it will search lines " +
-		"that match exactly with the input and remove them.")
+@Description({"Returns lines of a hologram. Can be changed, removing a text or an item means it will search lines " +
+		"that match exactly with the input and remove them.",
+		"",
+		"It is possible to create new lines using the `set` changer, for example if the hologram has 3 lines and " +
+		"you set line 5, the line 4 will be blank."})
 @Examples({"loop lines of the last created hologram:",
-		"\tif loop-hologram line is item line:",
-		"\t\tdelete loop-hologram line"})
+		"\tif loop-hologram line is an item line:",
+		"\t\tdelete loop-hologram line",
+		"",
+		"set line 5 of create hologram to \"test\""})
 @Since("1.0.0")
 public class ExprHologramLines extends SimpleExpression<HologramLine> {
 
@@ -52,7 +57,7 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 	private Expression<Hologram> holograms;
 	private Expression<Number> line;
 	private Kleenean firstLine = Kleenean.UNKNOWN;
-	private boolean isSingle = true;
+	private boolean allLines, isSingle;
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -60,7 +65,7 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 		// All lines
 		if (matchedPattern <= 1) {
 			holograms = (Expression<Hologram>) exprs[0];
-			isSingle = false;
+			allLines = true;
 		// Line x
 		} else if (matchedPattern <= 3) {
 			line = (Expression<Number>) exprs[0];
@@ -70,6 +75,7 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 			firstLine = Kleenean.get(parseResult.mark == 0);
 			holograms = (Expression<Hologram>) exprs[0];
 		}
+		isSingle = !allLines && holograms.isSingle();
 		return true;
 	}
 
@@ -88,10 +94,10 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 				}
 			// Line x
 			} else {
-				Number l = this.line.getSingle(e);
-				if (l == null)
+				Number line = this.line.getSingle(e);
+				if (line == null)
 					continue;
-				int li = l.intValue() - 1;
+				int li = line.intValue() - 1;
 				if (!(li >= 0 && li < holo.size()))
 					continue;
 				lines.add(holo.getLine(li));
@@ -103,7 +109,7 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 	@Override
 	public Class<?>[] acceptChange(ChangeMode mode) {
 		// All lines
-		if (!isSingle) {
+		if (allLines) {
 			switch (mode) {
 				case ADD:
 				case REMOVE:
@@ -122,7 +128,7 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 	@Override
 	public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
 		// All Lines
-		if (!isSingle) {
+		if (allLines) {
 			switch (mode) {
 				case ADD:
 					for (Hologram holo : holograms.getArray(e)) {
@@ -170,23 +176,51 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 							continue;
 						holo.clearLines();
 						for (Object o : delta) {
-							if (o instanceof String)
+							if (o instanceof String) {
 								holo.appendTextLine((String) o);
-							else
+							} else {
 								for (ItemStack item : ((ItemType) o).getItem().getAll())
 									holo.appendItemLine(item);
+							}
 						}
 					}
 					break;
 				case DELETE:
 				case RESET:
-					for (Hologram holo : holograms.getArray(e))
+					for (Hologram holo : holograms.getArray(e)) {
 						if (!holo.isDeleted())
 							holo.clearLines();
+					}
 			}
 		// Single lines will use changers of the HologramLine type
 		} else {
-			Types.hologramLineChanger.change(get(e), delta, mode);
+			// But make it possible to create new lines using 'line x' with SET
+			if (mode == ChangeMode.SET && line != null) {
+				Number line = this.line.getSingle(e);
+				if (line != null) {
+					int li = line.intValue();
+					if (li <= 0)
+						return;
+					for (Hologram holo : holograms.getArray(e)) {
+						if (holo.isDeleted())
+							continue;
+						if (li > holo.size()) {
+							int size = holo.size();
+							for (int i = 0; i < ((li - 1) - size); i++)
+								holo.appendTextLine("");
+							Object o = delta[0];
+							if (o instanceof String)
+								holo.appendTextLine((String) o);
+							else
+								holo.appendItemLine(((ItemType) o).getItem().getRandom());
+						} else {
+							Types.hologramLineChanger.change(CollectionUtils.array(holo.getLine(li - 1)), delta, ChangeMode.SET);
+						}
+					}
+				}
+			} else {
+				Types.hologramLineChanger.change(get(e), delta, mode);
+			}
 		}
 	}
 
@@ -202,7 +236,7 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
-		if (!isSingle)
+		if (allLines)
 			return "the lines of " + holograms.toString(e, debug);
 		else {
 			if (line == null)
