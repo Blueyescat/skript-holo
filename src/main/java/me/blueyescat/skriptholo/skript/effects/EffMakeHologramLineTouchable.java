@@ -58,7 +58,7 @@ public class EffMakeHologramLineTouchable extends Effect {
 
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
-		return "make " + lines.toString() + (touchable ? " touchable" : " untouchable");
+		return "make " + lines.toString(e, debug) + (touchable ? " touchable" : " untouchable");
 	}
 
 }

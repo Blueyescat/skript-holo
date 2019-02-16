@@ -31,7 +31,7 @@ public class Types {
 				.user("holo(gram)?s?")
 				.name("Hologram")
 				.description("A HolographicDisplays hologram. Can be deleted using the `delete/clear` changer or " +
-						"can be reset using the `reset` changer." +
+						"can be reset using the `reset` changer. " +
 						"When you delete a hologram that is stored in a variable, the hologram object will still " +
 						"exist in the variable but will not be usable. You should delete the variable too in this case.")
 				.since("0.1.0")

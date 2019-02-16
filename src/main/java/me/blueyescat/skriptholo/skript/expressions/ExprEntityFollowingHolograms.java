@@ -27,8 +27,8 @@ import me.blueyescat.skriptholo.util.Utils;
 @Name("Following Holograms of Entity")
 @Description("Returns the following holograms of an entity. " +
 		"Use the `Following Hologram` effect to make an exiting hologram start/stop following an entity.")
-@Examples("delete the following holograms of targeted entity" +
-		"set {_holograms::*} to all holograms that follows the player")
+@Examples({"delete the following holograms of targeted entity",
+		"set {_holograms::*} to all holograms that follows the player"})
 @Since("1.0.0")
 @RequiredPlugins("ProtocolLib")
 public class ExprEntityFollowingHolograms extends SimpleExpression<Hologram> {

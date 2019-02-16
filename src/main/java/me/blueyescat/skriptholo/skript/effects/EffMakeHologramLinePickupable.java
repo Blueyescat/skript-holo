@@ -58,7 +58,7 @@ public class EffMakeHologramLinePickupable extends Effect {
 
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
-		return "make " + lines.toString() + (pickupable ? " pickup-able" : " non-pickup-able");
+		return "make " + lines.toString(e, debug) + (pickupable ? " pickup-able" : " non-pickup-able");
 	}
 
 }
