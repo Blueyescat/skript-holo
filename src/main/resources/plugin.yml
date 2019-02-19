@@ -3,7 +3,7 @@ description: A properly made Skript addon for HolographicDisplays
 version: @version@
 
 author: Blueyescat
-website: https://github.com/Blueyescat
+website: https://github.com/Blueyescat/skript-holo
 
 depend: [Skript, HolographicDisplays]
 softdepend: [ProtocolLib]
