@@ -23,8 +23,8 @@ import me.blueyescat.skriptholo.util.Utils;
 @Name("Add Hologram Line")
 @Description("Adds new lines to a hologram. " +
 		"`insert` means adding after the specified line and moving the next lines below.")
-@Examples({"prepend \"<light green>Test\" to the created hologram",
-		"append a stone to {_holo}",
+@Examples({"append a stone to {_holo}",
+		"prepend \"<light green>Test\" to the created hologram",
 		"insert lines \"&cRedstone\" and a redstone in holo at line 2",
 		"insert every diamond armor into the hologram at the 5th line"})
 @Since("1.0.0")
@@ -32,42 +32,37 @@ public class EffAddHologramLine extends Effect {
 
 	static {
 		Skript.registerEffect(EffAddHologramLine.class,
-				"(prepend|1¦append) [(10¦interact|20¦(touch|click)|30¦pickup)[-]able] [line[s]] %-strings/itemtypes% to [holo[gram][s]] %holograms%",
-				"insert [(10¦interact|20¦(touch|click)|30¦pickup)[-]able] [line[s]] %-strings/itemtypes% in[to] [holo[gram][s]] %holograms% at line %number%",
-				"insert [(10¦interact|20¦(touch|click)|30¦pickup)[-]able] %-strings/itemtypes% in[to] [holo[gram][s]] %holograms% at [the] %number%(st|nd|rd|th) line");
+				"append [((1¦click|2¦touch|3¦interact)[-]able|3¦interactive)] [line[s]] %-strings/itemtypes% to [holo[gram][s]] %holograms%",
+				"prepend [((1¦click|2¦touch|3¦interact)[-]able|3¦interactive)] [line[s]] %-strings/itemtypes% to [holo[gram][s]] %holograms%",
+				"insert [((1¦click|2¦touch|3¦interact)[-]able|3¦interactive)] [line[s]] %-strings/itemtypes% in[to] [holo[gram][s]] %holograms% at line %number%",
+				"insert [((1¦click|2¦touch|3¦interact)[-]able|3¦interactive)] [line[s]] %-strings/itemtypes% in[to] [holo[gram][s]] %holograms% at [the] %number%(st|nd|rd|th) line");
 	}
 
+	private enum Modes {
+		APPEND, PREPEND, INSERT
+	}
+
+	private Modes mode;
+	private boolean clickable, touchable;
 	private Expression<?> lines;
 	private Expression<Hologram> holograms;
 	private Expression<Number> line;
 
-	private enum Modes {
-		PREPEND, APPEND, INSERT
-	}
-	private Modes mode;
-
-	private enum InteractModes {
-		ALL, TOUCHABLE, PICKUPABLE
-	}
-	private InteractModes interactMode;
-
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-		lines = exprs[0];
-		holograms = (Expression<Hologram>) exprs[1];
 		if (matchedPattern == 0) {
-			mode = parseResult.mark == 0 ? Modes.PREPEND : Modes.APPEND;
-		} else {
+			mode = Modes.APPEND;
+		} else if (matchedPattern == 1) {
+			mode = Modes.PREPEND;
+		} else if (matchedPattern >= 2) {
 			mode = Modes.INSERT;
 			line = (Expression<Number>) exprs[2];
 		}
-		if (parseResult.mark == 10 || parseResult.mark == 11)
-			interactMode = InteractModes.ALL;
-		else if (parseResult.mark == 20 || parseResult.mark == 21)
-			interactMode = InteractModes.TOUCHABLE;
-		else if (parseResult.mark == 30 || parseResult.mark == 31)
-			interactMode = InteractModes.PICKUPABLE;
+		clickable = (parseResult.mark & 1) == 1;
+		touchable = (parseResult.mark & 2) == 2;
+		lines = exprs[0];
+		holograms = (Expression<Hologram>) exprs[1];
 		return true;
 	}
 
@@ -104,26 +99,29 @@ public class EffAddHologramLine extends Effect {
 							addedLine = holo.appendItemLine(item);
 					}
 				}
-				if (interactMode == InteractModes.ALL) {
+				if (clickable)
 					Utils.addTouchHandler(addedLine);
+				if (touchable)
 					Utils.addPickupHandler(addedLine);
-				} else if (interactMode == InteractModes.TOUCHABLE) {
-					Utils.addTouchHandler(addedLine);
-				} else if (interactMode == InteractModes.PICKUPABLE) {
-					Utils.addPickupHandler(addedLine);
-				}
 			}
 		}
 	}
 
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
+		String interact = null;
+		if (clickable && touchable)
+			interact = "interactive ";
+		else if (clickable)
+			interact = "click-able ";
+		else if (touchable)
+			interact = "touchable ";
 		if (mode == Modes.INSERT)
-			return "insert " + lines.toString(e, debug) + " into " + holograms.toString(e, debug) +
+			return "insert " + (interact != null ? interact + " lines" : "") + lines.toString(e, debug) + " into " + holograms.toString(e, debug) +
 					" at line " + line.toString(e, debug);
 		else
-			return (mode == Modes.PREPEND ? "prepend " : "append ") + lines.toString(e, debug) +
-					" to " + holograms.toString(e, debug) + " at line " + line.toString(e, debug);
+			return (mode == Modes.PREPEND ? "prepend " : "append ") + (interact != null ? interact + " lines" : "") +
+					lines.toString(e, debug) + " to " + holograms.toString(e, debug) + " at line " + line.toString(e, debug);
 	}
 
 }

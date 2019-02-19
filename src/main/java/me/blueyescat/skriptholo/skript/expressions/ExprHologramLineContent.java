@@ -58,8 +58,10 @@ public class ExprHologramLineContent<T> extends SimpleExpression<T> {
 
 	private ExprHologramLineContent(ExprHologramLineContent<?> source, Class<? extends T>... types) {
 		this.source = source;
-		if (source != null)
+		if (source != null) {
 			lines = source.lines;
+			type = source.type;
+		}
 		superType = (Class<T>) Utils.getSuperType(types);
 	}
 
@@ -125,7 +127,7 @@ public class ExprHologramLineContent<T> extends SimpleExpression<T> {
 	public String toString(@Nullable Event e, boolean debug) {
 		if (type == 1)
 			return "the text of " + lines.toString(e, debug);
-		if (type == 2)
+		else if (type == 2)
 			return "the item of " + lines.toString(e, debug);
 		else
 			return "the content of " + lines.toString(e, debug);

@@ -28,8 +28,8 @@ public class ExprHologramLineParent extends SimpleExpression<Hologram> {
 
 	static {
 		Skript.registerExpression(ExprHologramLineParent.class, Hologram.class, ExpressionType.SIMPLE,
-				"[the] [parent] holo[gram][s] of [holo[gram] line[s]] %hologramlines%",
-				"%hologramlines%'[s] [parent] holo[gram][s]");
+				"[the] [parent[s]] holo[gram][s] of [holo[gram] line[s]] %hologramlines%",
+				"%hologramlines%'[s] [parent[s]] holo[gram][s]");
 	}
 
 	private Expression<HologramLine> lines;

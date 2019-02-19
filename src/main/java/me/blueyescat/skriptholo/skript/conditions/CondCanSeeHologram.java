@@ -20,7 +20,8 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import me.blueyescat.skriptholo.util.Utils;
 
 @Name("Can See Hologram")
-@Description("Checks whether the given players can see the given holograms.")
+@Description("Checks whether the given players can see the given holograms. " +
+		"Use the `Hologram Visibility` effect to hide/show holograms.")
 @Examples({"if holo {_variable} is hidden from the player:",
 		"if all players can see holograms {_list::*}:",
 		"if hologram {_holo} is not visible for {_player}:",

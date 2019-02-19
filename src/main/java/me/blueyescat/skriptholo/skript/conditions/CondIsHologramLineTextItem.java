@@ -19,7 +19,7 @@ import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
 
 @Name("Is Text/Item Line")
 @Description("Checks whether the given hologram line is a text line or an item line." +
-		"The `Hologram Line Content` expression can be used to get the text or item.")
+		"The `Hologram Line Content` expression can be used to get the text or the item.")
 @Examples({"if event-holo-line is a text line:",
 		"if line 3 of holo {_variable} is an item line:",
 		"if lines of event-holo aren't string lines:"})

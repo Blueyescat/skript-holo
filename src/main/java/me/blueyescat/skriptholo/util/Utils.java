@@ -75,6 +75,10 @@ public class Utils {
 		}
 	}
 
+	public static void deleteHologram(Hologram... holograms) {
+		deleteHologram(null, holograms);
+	}
+
 	public static void makeHologramStartFollowing(Hologram holo, Entity entity, Vector offset) {
 		SkriptHolo.followingHologramsList.add(holo);
 
@@ -131,10 +135,6 @@ public class Utils {
 		return SkriptHolo.followingHologramsList.contains(holo);
 	}
 
-	public static void deleteHologram(Hologram... holograms) {
-		deleteHologram(null, holograms);
-	}
-
 	public static void addTouchHandler(HologramLine line) {
 		TouchableLine tl = (TouchableLine) line;
 		if (tl.getTouchHandler() == null) {
@@ -151,7 +151,7 @@ public class Utils {
 		CollectableLine tl = (CollectableLine) line;
 		if (tl.getPickupHandler() == null) {
 			tl.setPickupHandler(player -> {
-				HologramLineTouchEvent event = new HologramLineTouchEvent(player, tl);
+				HologramLinePickupEvent event = new HologramLinePickupEvent(player, tl);
 				Bukkit.getPluginManager().callEvent(event);
 			});
 		}

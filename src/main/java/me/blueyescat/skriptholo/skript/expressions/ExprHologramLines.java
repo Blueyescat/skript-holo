@@ -236,9 +236,9 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
-		if (allLines)
+		if (allLines) {
 			return "the lines of " + holograms.toString(e, debug);
-		else {
+		} else {
 			if (line == null)
 				return "the " + (firstLine.isTrue() ? "first" : "last") + " line of " + holograms.toString(e, debug);
 			return "the line " + line.toString(e, debug) + " of " + holograms.toString(e, debug);

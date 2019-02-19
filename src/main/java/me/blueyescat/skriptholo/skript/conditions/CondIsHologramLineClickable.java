@@ -13,19 +13,19 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
 
-import com.gmail.filoghost.holographicdisplays.api.line.CollectableLine;
 import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
+import com.gmail.filoghost.holographicdisplays.api.line.TouchableLine;
 
-@Name("Is Hologram Line Pickup-able")
-@Description("Checks whether the given hologram line is pickup-able.")
-@Examples("if line 3 of {_hologram} is pickup-able:")
+@Name("Is Hologram Line Click-able")
+@Description("Checks whether the given hologram line is click-able.")
+@Examples("if line 3 of {_hologram} is click-able:")
 @Since("1.0.0")
-public class CondIsHologramLinePickupable extends Condition {
+public class CondIsHologramLineClickable extends Condition {
 
 	static {
-		Skript.registerCondition(CondIsHologramLinePickupable.class,
-				"[holo[gram] line[s]] %hologramlines% (is|are) [(1¦(non[-]|un))]pick[( |-)]up[-]able",
-				"[holo[gram] line[s]] %hologramlines% (isn't|is not|aren't|are not) [(1¦(non[-]|un))]pick[( |-)]up[-]able");
+		Skript.registerCondition(CondIsHologramLineClickable.class,
+				"[holo[gram] line[s]] %hologramlines% (is|are) [(1¦(un|non[-]))]click[-]able",
+				"[holo[gram] line[s]] %hologramlines% (isn't|is not|aren't|are not) [(1¦(un|non[-]))]click[-]able");
 	}
 
 	private Expression<HologramLine> lines;
@@ -40,12 +40,12 @@ public class CondIsHologramLinePickupable extends Condition {
 
 	@Override
 	public boolean check(Event e) {
-		return lines.check(e, line -> ((CollectableLine) line).getPickupHandler() != null, isNegated());
+		return lines.check(e, line -> line instanceof TouchableLine && ((TouchableLine) line).getTouchHandler() != null, isNegated());
 	}
 
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
-		return lines.toString(e, debug) + " is " + (isNegated() ? "not " : "") + "pickup-able";
+		return lines.toString(e, debug) + " is " + (isNegated() ? "not " : "") + "click-able";
 	}
 
 }

@@ -28,8 +28,8 @@ public class ExprHologramCreationDate extends SimpleExpression<Date> {
 
 	static {
 		Skript.registerExpression(ExprHologramCreationDate.class, Date.class, ExpressionType.SIMPLE,
-				"[the] creation date[s] of [holo[gram][s]] %holograms%",
-				"%holograms%'[s] creation date[s]");
+				"[the] (creation|spawned) date[s] of [holo[gram][s]] %holograms%",
+				"%holograms%'[s] (creation|spawned) date[s]");
 	}
 
 	private Expression<Hologram> holograms;

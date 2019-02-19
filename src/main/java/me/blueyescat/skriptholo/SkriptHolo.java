@@ -1,7 +1,11 @@
 package me.blueyescat.skriptholo;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.Bukkit;
@@ -90,8 +94,7 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 			Location location = event.getTo().clone();
 			if (entry.getValue() != null)
 				location.add((Vector) entry.getValue());
-			if ((holo.getWorld() == location.getWorld()) ||
-					(holo.getLocation().distance(location) != 0))
+			if ((holo.getWorld() == location.getWorld()) || (holo.getLocation().distance(location) != 0))
 				holo.teleport(location);
 		}
 	}
@@ -139,8 +142,7 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 							Location location = entity.getLocation().clone();
 							if (entry.getValue() != null)
 								location.add((Vector) entry.getValue());
-							if ((holo.getWorld() == location.getWorld()) ||
-									(holo.getLocation().distance(location) != 0))
+							if ((holo.getWorld() == location.getWorld()) || (holo.getLocation().distance(location) != 0))
 								holo.teleport(location);
 						}
 					}

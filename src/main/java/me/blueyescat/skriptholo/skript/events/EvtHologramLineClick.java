@@ -15,18 +15,16 @@ import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 
 import me.blueyescat.skriptholo.util.HologramLineTouchEvent;
 
-public class EvtHologramLinePickup extends SkriptEvent {
+public class EvtHologramLineClick extends SkriptEvent {
 
 	static {
-		Skript.registerEvent("Hologram Line Pickup", EvtHologramLinePickup.class, HologramLineTouchEvent.class,
-				"holo[gram] [line] pick[( |-)]up")
-				.description("Called when a player tries to pickup a pickup-able hologram line. " +
-						"Note that actually the item will not be picked up, so this event will be called every ticks " +
-						"while a player is trying to pickup the item. See the `Make Hologram Line Pickup-able` effect.`")
-				.examples("on hologram pickup:",
-						"\tif content of event-hologram-line is a stone:",
-						"\t\tgive event-hologram-line to player")
-				.since("0.1.0");
+		Skript.registerEvent("Hologram Line Click", EvtHologramLineClick.class, HologramLineTouchEvent.class,
+				"holo[gram] [line] click")
+				.description("Called when a player clicks on a hologram line. " +
+						"See the `Make Hologram Line Click-able` effect.")
+				.examples("on hologram click:",
+						"\tif event-hologram-line is \"test\":")
+				.since("1.0.0");
 
 		EventValues.registerEventValue(HologramLineTouchEvent.class, Player.class, new Getter<Player, HologramLineTouchEvent>() {
 			@Override
@@ -60,7 +58,7 @@ public class EvtHologramLinePickup extends SkriptEvent {
 
 	@Override
 	public String toString(Event e, boolean debug) {
-		return "hologram line pickup";
+		return "hologram line click";
 	}
 
 }

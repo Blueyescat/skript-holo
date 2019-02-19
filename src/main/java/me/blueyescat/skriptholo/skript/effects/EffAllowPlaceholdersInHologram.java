@@ -18,18 +18,16 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 @Name("Allow Placeholders in Hologram")
 @Description("Allows/disallows placeholders in a hologram. Disallowed by default.")
 @Examples({"allow placeholders in the created hologram",
-		"don't support placeholders in {_hologram}",
-		"make the holo allow placeholders",
-		"make {_holograms::*} don't support placeholders"})
+		"disable placeholders for {_hologram}",
+		"enable the placeholders in the holo",
+		"disallow placeholders in {_holograms::*}"})
 @Since("1.0.0")
 public class EffAllowPlaceholdersInHologram extends Effect {
 
 	static {
 		Skript.registerEffect(EffAllowPlaceholdersInHologram.class,
-				"[(1¦dis)]allow placeholders in [holo[gram][s]] %holograms%",
-				"[(1¦(don't|do not))] support placeholders in [holo[gram][s]] %holograms%",
-				"(make|let) [holo[gram][s]] %holograms% [(1¦dis)]allow placeholders",
-				"(make|let) [holo[gram][s]] %holograms% [(1¦(don't|do not))] support placeholders");
+				"(allow|enable) [the] placeholders (in|for) [holo[gram][s]] %holograms%",
+				"(disallow|disable) [the] placeholders (in|for) [holo[gram][s]] %holograms%");
 	}
 
 	private Expression<Hologram> holograms;
@@ -39,7 +37,7 @@ public class EffAllowPlaceholdersInHologram extends Effect {
 	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		holograms = (Expression<Hologram>) exprs[0];
-		allow = parseResult.mark == 0;
+		allow = matchedPattern == 0;
 		return true;
 	}
 

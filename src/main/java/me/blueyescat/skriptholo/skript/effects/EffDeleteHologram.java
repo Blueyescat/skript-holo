@@ -18,8 +18,8 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import me.blueyescat.skriptholo.util.Utils;
 
 @Name("Delete Hologram")
-@Description({"Deletes a hologram. The hologram type has the delete changer already but this exists for variables " +
-		"so `delete {_holo}` would delete the variable but you can do `delete hologram {_holo}` to avoid that.",
+@Description({"Deletes a hologram. The hologram type has the delete changer already, but this effect exists for variables. " +
+		"For example `delete {_holo}` would delete the variable but you can use `delete hologram {_holo}` to avoid that.",
 		"",
 		"When you delete a hologram that is stored in a variable, the hologram object " +
 		"will still exist in the variable but will not be usable. You should delete the variable too in this case."})

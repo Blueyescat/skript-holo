@@ -34,7 +34,7 @@ public class Types {
 						"can be reset using the `reset` changer. " +
 						"When you delete a hologram that is stored in a variable, the hologram object will still " +
 						"exist in the variable but will not be usable. You should delete the variable too in this case.")
-				.since("0.1.0")
+				.since("1.0.0")
 				.changer(new Changer<Hologram>() {
 					@Override
 					public Class<?>[] acceptChange(ChangeMode mode) {
@@ -140,10 +140,10 @@ public class Types {
 						"",
 						"Has converters to `text`, `item type` and `number`. " +
 						"Converters mean that you can use this type like the converted types. " +
-						"For example you can do `if event-hologram-line is 5:` but please note that getting line " +
+						"For example you can do `give line 1 of hologram to player` and `if event-hologram-line is 5:`, but please note that getting line " +
 						"number of a hologram line will check every line of the hologram. " +
 						"You shouldn't make systems that relies on line numbers, but contents.")
-				.since("0.1.0")
+				.since("1.0.0")
 				.changer(hologramLineChanger)
 				.parser(new Parser<HologramLine>() {
 					@Override

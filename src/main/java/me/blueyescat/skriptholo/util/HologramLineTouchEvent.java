@@ -12,7 +12,6 @@ public class HologramLineTouchEvent extends Event {
 	private static final HandlerList handlers = new HandlerList();
 	private Player player;
 	private HologramLine line;
-	;
 
 	public HologramLineTouchEvent(Player player, HologramLine line) {
 		this.player = player;

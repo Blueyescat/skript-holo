@@ -13,8 +13,8 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
 
+import com.gmail.filoghost.holographicdisplays.api.line.CollectableLine;
 import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
-import com.gmail.filoghost.holographicdisplays.api.line.TouchableLine;
 
 @Name("Is Hologram Line Touchable")
 @Description("Checks whether the given hologram line is touchable.")
@@ -24,8 +24,8 @@ public class CondIsHologramLineTouchable extends Condition {
 
 	static {
 		Skript.registerCondition(CondIsHologramLineTouchable.class,
-				"[holo[gram] line[s]] %hologramlines% (is|are) [(1¦(un|non[-]))](touch|click)[-]able",
-				"[holo[gram] line[s]] %hologramlines% (isn't|is not|aren't|are not) [(1¦(un|non[-]))](touch|click)[-]able");
+				"[holo[gram] line[s]] %hologramlines% (is|are) [(1¦(non[-]|un))]touch[-]able",
+				"[holo[gram] line[s]] %hologramlines% (isn't|is not|aren't|are not) [(1¦(non[-]|un))]touch[-]able");
 	}
 
 	private Expression<HologramLine> lines;
@@ -40,7 +40,7 @@ public class CondIsHologramLineTouchable extends Condition {
 
 	@Override
 	public boolean check(Event e) {
-		return lines.check(e, line -> ((TouchableLine) line).getTouchHandler() != null, isNegated());
+		return lines.check(e, line -> line instanceof CollectableLine && ((CollectableLine) line).getPickupHandler() != null, isNegated());
 	}
 
 	@Override
