@@ -96,6 +96,8 @@ public class EffCreateHologram extends Effect {
 			if (this.location == null)
 				return;
 			location = this.location.getSingle(e);
+			if (location == null)
+				return;
 		} else {
 			if (this.entity != null) {
 				entity = this.entity.getSingle(e);
