@@ -18,7 +18,7 @@ import ch.njol.util.Kleenean;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
-import me.blueyescat.skriptholo.SkriptHolo;
+import me.blueyescat.skriptholo.Listeners;
 import me.blueyescat.skriptholo.util.Utils;
 
 @Name("Following Hologram")
@@ -75,7 +75,7 @@ public class EffFollowingHologram extends Effect {
 				assert entity != null;
 				Utils.makeHologramStartFollowing(holo, entity, offset);
 			}
-			SkriptHolo.startFollowingHologramTasks();
+			Listeners.start();
 		} else {
 			for (Hologram holo : holograms.getArray(e)) {
 				if (Utils.isFollowingHologram(holo))
