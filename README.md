@@ -3,7 +3,7 @@ A properly made [Skript](https://github.com/SkriptLang/Skript) addon for [Hologr
 
 What makes this addon better than others is, it is made properly. You will not get console errors, its syntaxes are user friendly, it fully supports API of HolographicDisplays.
 
-Also following holograms feature of skript-holo works better than others, it would be even better if i use something better than HolographicDisplays but still ok... Note that if a hologram follows a controlled by client entity (like player, boat, horse) the hologram will not look good to the player itself. In this case you can hide the hologram from player itself using the Hologram Visibility effect.
+Also following holograms feature of skript-holo works better than others, it would be even better if i use something better than HolographicDisplays but still ok... Note that if a hologram follows a controlled by client entity (like player, boat, horse) the hologram will not look good to the player itself. In this case you can hide the hologram from player itself using the [Hologram Visibility](https://skripthub.net/docs/?id=3547) effect.
 
 ⚠️ Following Holograms and Hologram Visibility features require [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997).
 
