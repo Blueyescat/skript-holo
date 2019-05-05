@@ -43,6 +43,9 @@ import me.blueyescat.skriptholo.util.Utils;
 @Since("1.0.0")
 public class EffCreateHologram extends Effect {
 
+	@Nullable
+	public static Hologram lastCreated = null;
+
 	static {
 		Skript.registerEffect(EffCreateHologram.class,
 				"(create|spawn) [a] [new] holo[gram] [with [((1¦click|2¦touch|3¦interact)[-]able|3¦interactive)] line[s] %-strings/itemtypes%] [%direction% %location%] [and store [it] in [[the] variable] %-objects%]",
@@ -55,9 +58,6 @@ public class EffCreateHologram extends Effect {
 	private Expression<Vector> offset;
 	private Variable<?> variable;
 	private boolean isFollowing, clickable, touchable;
-
-	@Nullable
-	public static Hologram lastCreated = null;
 
 	@Override
 	@SuppressWarnings("unchecked")

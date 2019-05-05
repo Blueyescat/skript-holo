@@ -25,30 +25,6 @@ import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
 
 public class Listeners implements Listener {
 
-	@EventHandler
-	public void onPlayerMove(PlayerMoveEvent event) {
-		int entityID = event.getPlayer().getEntityId();
-		Map<Hologram, Vector> holoMap = SkriptHolo.followingHolograms.get(entityID);
-		if (holoMap == null || holoMap.isEmpty())
-			return;
-		for (Object o : holoMap.entrySet()) {
-			Map.Entry entry = (Map.Entry) o;
-			Hologram holo = (Hologram) entry.getKey();
-			if (holo.isDeleted()) {
-				holoMap.remove(holo);
-				return;
-			}
-			Player player = event.getPlayer();
-			if (!holo.getVisibilityManager().isVisibleTo(player))
-				return;
-			Location location = event.getTo().clone();
-			if (entry.getValue() != null)
-				location.add((Vector) entry.getValue());
-			if ((holo.getWorld() == location.getWorld()) || (holo.getLocation().distance(location) != 0))
-				holo.teleport(location);
-		}
-	}
-
 	public static void start() {
 		if (SkriptHolo.startedFollowingHologramTasks)
 			return;
@@ -117,6 +93,30 @@ public class Listeners implements Listener {
 				}
 			}
 		}.runTaskTimerAsynchronously(SkriptHolo.getInstance(), 60, 0);
+	}
+
+	@EventHandler
+	public void onPlayerMove(PlayerMoveEvent event) {
+		int entityID = event.getPlayer().getEntityId();
+		Map<Hologram, Vector> holoMap = SkriptHolo.followingHolograms.get(entityID);
+		if (holoMap == null || holoMap.isEmpty())
+			return;
+		for (Object o : holoMap.entrySet()) {
+			Map.Entry entry = (Map.Entry) o;
+			Hologram holo = (Hologram) entry.getKey();
+			if (holo.isDeleted()) {
+				holoMap.remove(holo);
+				return;
+			}
+			Player player = event.getPlayer();
+			if (!holo.getVisibilityManager().isVisibleTo(player))
+				return;
+			Location location = event.getTo().clone();
+			if (entry.getValue() != null)
+				location.add((Vector) entry.getValue());
+			if ((holo.getWorld() == location.getWorld()) || (holo.getLocation().distance(location) != 0))
+				holo.teleport(location);
+		}
 	}
 
 }

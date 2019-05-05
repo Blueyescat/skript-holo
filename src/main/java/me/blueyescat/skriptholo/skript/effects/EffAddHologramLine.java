@@ -38,15 +38,15 @@ public class EffAddHologramLine extends Effect {
 				"insert [((1¦click|2¦touch|3¦interact)[-]able|3¦interactive)] [line[s]] %-strings/itemtypes% in[to] [holo[gram][s]] %holograms% at [the] %number%(st|nd|rd|th) line");
 	}
 
-	private enum Modes {
-		APPEND, PREPEND, INSERT
-	}
-
 	private Modes mode;
 	private boolean clickable, touchable;
 	private Expression<?> lines;
 	private Expression<Hologram> holograms;
 	private Expression<Number> line;
+
+	private enum Modes {
+		APPEND, PREPEND, INSERT
+	}
 
 	@Override
 	@SuppressWarnings("unchecked")

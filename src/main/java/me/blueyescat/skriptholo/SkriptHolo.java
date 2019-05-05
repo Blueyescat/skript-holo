@@ -23,13 +23,12 @@ import me.blueyescat.skriptholo.util.Utils;
 
 public class SkriptHolo extends JavaPlugin implements Listener {
 
-	private static SkriptHolo instance;
-	private static SkriptAddon addonInstance;
-
 	public static boolean startedFollowingHologramTasks = false;
 	public static Map<Integer, Map<Hologram, Vector>> followingHolograms = new HashMap<>();
 	public static Map<Entity, List<Hologram>> followingHologramsEntities = new ConcurrentHashMap<>();
 	public static Set<Hologram> followingHologramsList = new HashSet<>();
+	private static SkriptHolo instance;
+	private static SkriptAddon addonInstance;
 
 	public SkriptHolo() {
 		if (instance == null)

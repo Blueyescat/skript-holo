@@ -1,7 +1,6 @@
 package me.blueyescat.skriptholo.skript;
 
 import org.bukkit.Location;
-import org.bukkit.inventory.ItemStack;
 import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.aliases.ItemType;
@@ -131,7 +130,8 @@ public class Types {
 						}
 					}
 				}
-			}};
+			}
+		};
 
 		Classes.registerClass(new ClassInfo<>(HologramLine.class, "hologramline")
 				.user("holo(gram)?( |-)?lines?")

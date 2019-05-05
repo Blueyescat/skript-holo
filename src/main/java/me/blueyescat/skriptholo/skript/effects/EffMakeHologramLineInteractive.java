@@ -13,9 +13,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
 
-import com.gmail.filoghost.holographicdisplays.api.line.CollectableLine;
 import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
-import com.gmail.filoghost.holographicdisplays.api.line.TouchableLine;
 
 import me.blueyescat.skriptholo.util.Utils;
 

@@ -40,12 +40,12 @@ public class EffHologramVisibility extends Effect {
 				"(make|let) [holo[gram][s]] %holograms% visible by default");
 	}
 
-	private Expression<Hologram> holograms;
-	private Expression<Player> players;
-
 	private enum Modes {
 		HIDE, REVEAL, RESET, RESET_ALL, DEFAULT_INVISIBLE, DEFAULT_VISIBLE
 	}
+
+	private Expression<Hologram> holograms;
+	private Expression<Player> players;
 	private Modes mode;
 
 	@Override
