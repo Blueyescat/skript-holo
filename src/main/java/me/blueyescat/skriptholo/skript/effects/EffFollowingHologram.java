@@ -2,7 +2,6 @@ package me.blueyescat.skriptholo.skript.effects;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
-import org.bukkit.util.Vector;
 import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.Skript;
@@ -14,6 +13,7 @@ import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.util.Direction;
 import ch.njol.util.Kleenean;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
@@ -23,7 +23,9 @@ import me.blueyescat.skriptholo.util.Utils;
 
 @Name("Following Hologram")
 @Description("Makes a hologram start/stop following an entity.")
-@Examples({"make the last created hologram follow player",
+@Examples({"set {_directions::*} to 1.5 meters horizontally infront, 1 meter above and 0.5 meters right",
+		"make the last created hologram follow player with offset {_directions::*}",
+		"",
 		"make all holograms stop following",
 		"let hologram {variable} start following event-entity"})
 @Since("1.0.0")
@@ -32,13 +34,13 @@ public class EffFollowingHologram extends Effect {
 
 	static {
 		Skript.registerEffect(EffFollowingHologram.class,
-				"(make|let) [holo[gram][s]] %holograms% (start following|follow) %entity% [with offset [(by|of)] %-vector%]",
+				"(make|let) [holo[gram][s]] %holograms% (start following|follow) %entity% [[with] offset [(of|by|in|to)] [[the] direction] %-directions%]",
 				"(make|let) [holo[gram][s]] %holograms% (stop following|unfollow)");
 	}
 
 	private Expression<Hologram> holograms;
 	private Expression<Entity> entity;
-	private Expression<Vector> offset;
+	private Expression<Direction> offset;
 	private boolean negative;
 
 	@Override
@@ -52,7 +54,7 @@ public class EffFollowingHologram extends Effect {
 		negative = matchedPattern == 1;
 		if (!negative) {
 			entity = (Expression<Entity>) exprs[1];
-			offset = (Expression<Vector>) exprs[2];
+			offset = (Expression<Direction>) exprs[2];
 		}
 		return true;
 	}
@@ -69,9 +71,10 @@ public class EffFollowingHologram extends Effect {
 			for (Hologram holo : holograms.getArray(e)) {
 				if (Utils.isFollowingHologram(holo))
 					Utils.makeHologramStopFollowing(holo);
-				Vector offset = null;
-				if (this.offset != null)
-					offset = this.offset.getSingle(e);
+				Direction[] offset = null;
+				if (this.offset != null) {
+					offset = this.offset.getArray(e);
+				}
 				assert entity != null;
 				Utils.makeHologramStartFollowing(holo, entity, offset);
 			}
@@ -88,7 +91,7 @@ public class EffFollowingHologram extends Effect {
 	public String toString(@Nullable Event e, boolean debug) {
 		if (!negative) {
 			return "make " + holograms.toString(e, debug) + " start following " + entity.toString(e, debug) +
-					(offset != null ? " with offset by " + offset.toString(e, debug) : "");
+					(offset != null ? " with offset " + offset.toString(e, debug) : "");
 		} else {
 			return "make " + holograms.toString(e, debug) + " stop following " +
 					(entity != null ? entity.toString(e, debug) : "");

@@ -10,7 +10,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.util.Vector;
+
+import ch.njol.skript.util.Direction;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.line.CollectableLine;
@@ -59,7 +60,7 @@ public class Utils {
 					it = SkriptHolo.followingHolograms.entrySet().iterator();
 					while (it.hasNext()) {
 						Map.Entry entry = (Map.Entry) it.next();
-						Map<Hologram, Vector> holoMap = (Map<Hologram, Vector>) entry.getValue();
+						Map<Hologram, Direction[]> holoMap = (Map<Hologram, Direction[]>) entry.getValue();
 						for (Object o2 : holoMap.entrySet()) {
 							Map.Entry entry2 = (Map.Entry) o2;
 							if (entry2.getKey().equals(holo)) {
@@ -79,10 +80,16 @@ public class Utils {
 		deleteHologram(null, holograms);
 	}
 
-	public static void makeHologramStartFollowing(Hologram holo, Entity entity, Vector offset) {
+	public static Location offsetLocation(Location loc, Direction... directions) {
+		for (Direction d : directions)
+			loc = d.getRelative(loc);
+		return loc;
+	}
+
+	public static void makeHologramStartFollowing(Hologram holo, Entity entity, Direction[] offset) {
 		SkriptHolo.followingHologramsList.add(holo);
 
-		Map<Hologram, Vector> holoMap;
+		Map<Hologram, Direction[]> holoMap;
 		int entityID = entity.getEntityId();
 		holoMap = SkriptHolo.followingHolograms.get(entityID);
 		if (holoMap == null)
@@ -98,10 +105,8 @@ public class Utils {
 		SkriptHolo.followingHologramsEntities.put(entity, holoList);
 
 		Location location = entity.getLocation().clone();
-		if (offset != null)
-			location.add(offset);
 		if (holo.getWorld() == location.getWorld())
-			holo.teleport(location);
+			holo.teleport(offset != null ? offsetLocation(location, offset) : location);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -110,7 +115,7 @@ public class Utils {
 		it = SkriptHolo.followingHolograms.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry entry = (Map.Entry) it.next();
-			Map<Hologram, Vector> holoMap = (Map<Hologram, Vector>) entry.getValue();
+			Map<Hologram, Direction[]> holoMap = (Map<Hologram, Direction[]>) entry.getValue();
 			Iterator it2 = holoMap.entrySet().iterator();
 			while (it2.hasNext()) {
 				Hologram holo2 = (Hologram) ((Map.Entry) it2.next()).getKey();

@@ -1,11 +1,11 @@
 package me.blueyescat.skriptholo.skript.expressions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import org.bukkit.event.Event;
-import org.bukkit.util.Vector;
 import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.Skript;
@@ -19,6 +19,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.skript.util.Direction;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 
@@ -28,15 +29,15 @@ import me.blueyescat.skriptholo.SkriptHolo;
 import me.blueyescat.skriptholo.util.Utils;
 
 @Name("Following Hologram Offset")
-@Description("Returns offset of a following hologram. Can be set.")
-@Examples("delete offset of last holo" +
-		"set following offset of {_hologram} to vector(0.5, 2.5, 0)")
+@Description("Returns offset (directions) of a following hologram. Can be set.")
+@Examples({"delete offset of last holo",
+		"set following offset of {_hologram} to 0.5 meters east and 2.5 meters above"})
 @Since("1.0.0")
 @RequiredPlugins("ProtocolLib")
-public class ExprFollowingHologramOffset extends SimpleExpression<Vector> {
+public class ExprFollowingHologramOffset extends SimpleExpression<Direction> {
 
 	static {
-		Skript.registerExpression(ExprFollowingHologramOffset.class, Vector.class, ExpressionType.SIMPLE,
+		Skript.registerExpression(ExprFollowingHologramOffset.class, Direction.class, ExpressionType.SIMPLE,
 				"[the] [following] offset[s] of [holo[gram][s]] %holograms%",
 				"%holograms%'[s] [following] offset[s]");
 	}
@@ -55,27 +56,27 @@ public class ExprFollowingHologramOffset extends SimpleExpression<Vector> {
 	}
 
 	@Override
-	protected Vector[] get(Event e) {
-		List<Vector> offsets = new ArrayList<>();
+	protected Direction[] get(Event e) {
+		List<Direction> offsets = new ArrayList<>();
 		for (Hologram holo : holograms.getArray(e)) {
 			if (!Utils.isFollowingHologram(holo))
 				continue;
 			for (int entityID : SkriptHolo.followingHolograms.keySet()) {
-				Map<Hologram, Vector> holoMap = SkriptHolo.followingHolograms.get(entityID);
+				Map<Hologram, Direction[]> holoMap = SkriptHolo.followingHolograms.get(entityID);
 				for (Object o : holoMap.entrySet()) {
 					Map.Entry entry = (Map.Entry) o;
 					if (entry.getKey().equals(holo) && entry.getValue() != null)
-						offsets.add((Vector) entry.getValue());
+						offsets.addAll(Arrays.asList((Direction[]) entry.getValue()));
 				}
 			}
 		}
-		return offsets.toArray(new Vector[0]);
+		return offsets.toArray(new Direction[0]);
 	}
 
 	@Override
 	public Class<?>[] acceptChange(ChangeMode mode) {
 		if (mode == ChangeMode.SET || mode == ChangeMode.DELETE || mode == ChangeMode.RESET)
-			return CollectionUtils.array(Vector.class);
+			return CollectionUtils.array(Direction[].class);
 		return null;
 	}
 
@@ -86,14 +87,18 @@ public class ExprFollowingHologramOffset extends SimpleExpression<Vector> {
 			if (!Utils.isFollowingHologram(holo))
 				continue;
 			for (int entityID : SkriptHolo.followingHolograms.keySet()) {
-				Map<Hologram, Vector> holoMap = SkriptHolo.followingHolograms.get(entityID);
+				Map<Hologram, Direction[]> holoMap = SkriptHolo.followingHolograms.get(entityID);
 				for (Object o : holoMap.entrySet()) {
 					Map.Entry entry = (Map.Entry) o;
 					if (entry.getKey().equals(holo)) {
-						if (mode == ChangeMode.SET)
-							entry.setValue(delta[0]);
-						else
+						if (mode == ChangeMode.SET) {
+							Direction[] directions = new Direction[delta.length];
+							for (int i = 0; i < delta.length; i++)
+								directions[i] = (Direction) delta[i];
+							entry.setValue(directions);
+						} else {
 							entry.setValue(null);
+						}
 					}
 				}
 			}
@@ -102,12 +107,12 @@ public class ExprFollowingHologramOffset extends SimpleExpression<Vector> {
 
 	@Override
 	public boolean isSingle() {
-		return holograms.isSingle();
+		return false;
 	}
 
 	@Override
-	public Class<? extends Vector> getReturnType() {
-		return Vector.class;
+	public Class<? extends Direction> getReturnType() {
+		return Direction.class;
 	}
 
 	@Override

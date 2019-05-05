@@ -11,7 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
+
+import ch.njol.skript.util.Direction;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -22,6 +23,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
 import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
+import me.blueyescat.skriptholo.util.Utils;
 
 public class Listeners implements Listener {
 
@@ -40,7 +42,7 @@ public class Listeners implements Listener {
 					@Override
 					public void onPacketSending(PacketEvent event) {
 						int entityID = event.getPacket().getIntegers().read(0);
-						Map<Hologram, Vector> holoMap = SkriptHolo.followingHolograms.get(entityID);
+						Map<Hologram, Direction[]> holoMap = SkriptHolo.followingHolograms.get(entityID);
 						if (holoMap == null || holoMap.isEmpty())
 							return;
 						for (Object o : holoMap.entrySet()) {
@@ -55,10 +57,8 @@ public class Listeners implements Listener {
 							if (player.equals(entity) && !holo.getVisibilityManager().isVisibleTo(player))
 								continue;
 							Location location = entity.getLocation().clone();
-							if (entry.getValue() != null)
-								location.add((Vector) entry.getValue());
 							if ((holo.getWorld() == location.getWorld()) || (holo.getLocation().distance(location) != 0))
-								holo.teleport(location);
+								holo.teleport(entry.getValue() != null ? Utils.offsetLocation(location, (Direction[]) entry.getValue()) : location);
 						}
 					}
 				});
@@ -98,7 +98,7 @@ public class Listeners implements Listener {
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
 		int entityID = event.getPlayer().getEntityId();
-		Map<Hologram, Vector> holoMap = SkriptHolo.followingHolograms.get(entityID);
+		Map<Hologram, Direction[]> holoMap = SkriptHolo.followingHolograms.get(entityID);
 		if (holoMap == null || holoMap.isEmpty())
 			return;
 		for (Object o : holoMap.entrySet()) {
@@ -111,11 +111,11 @@ public class Listeners implements Listener {
 			Player player = event.getPlayer();
 			if (!holo.getVisibilityManager().isVisibleTo(player))
 				return;
+			if (event.getTo() == null)
+				return;
 			Location location = event.getTo().clone();
-			if (entry.getValue() != null)
-				location.add((Vector) entry.getValue());
 			if ((holo.getWorld() == location.getWorld()) || (holo.getLocation().distance(location) != 0))
-				holo.teleport(location);
+				holo.teleport(entry.getValue() != null ? Utils.offsetLocation(location, (Direction[]) entry.getValue()) : location);
 		}
 	}
 

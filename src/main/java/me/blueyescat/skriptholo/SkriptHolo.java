@@ -11,10 +11,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.Vector;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
+import ch.njol.skript.util.Direction;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
@@ -24,7 +24,7 @@ import me.blueyescat.skriptholo.util.Utils;
 public class SkriptHolo extends JavaPlugin implements Listener {
 
 	public static boolean startedFollowingHologramTasks = false;
-	public static Map<Integer, Map<Hologram, Vector>> followingHolograms = new HashMap<>();
+	public static Map<Integer, Map<Hologram, Direction[]>> followingHolograms = new HashMap<>();
 	public static Map<Entity, List<Hologram>> followingHologramsEntities = new ConcurrentHashMap<>();
 	public static Set<Hologram> followingHologramsList = new HashSet<>();
 	private static SkriptHolo instance;
@@ -62,7 +62,7 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 	}
 
 	static void deleteFollowingHolograms(int entityID) {
-		Map<Hologram, Vector> holoMap = followingHolograms.get(entityID);
+		Map<Hologram, Direction[]> holoMap = followingHolograms.get(entityID);
 		if (holoMap == null || holoMap.isEmpty())
 			return;
 		for (Object o : holoMap.entrySet()) {
