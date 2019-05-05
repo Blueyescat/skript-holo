@@ -45,8 +45,10 @@ public class EffTeleportHologram extends Effect {
 		Location location = this.location.getSingle(e);
 		if (location == null)
 			return;
-		for (Hologram holo : holograms.getArray(e))
-			holo.teleport(location);
+		for (Hologram holo : holograms.getArray(e)) {
+			if (!holo.isDeleted())
+				holo.teleport(location);
+		}
 	}
 
 	@Override
