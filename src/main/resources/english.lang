@@ -1,0 +1,5 @@
+version: 2.2
+
+types:
+    hologram: hologram¦s @a
+    hologramline: hologram line¦s @a
