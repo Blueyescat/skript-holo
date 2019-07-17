@@ -1,39 +1,40 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-    id 'java'
+	id 'java'
 }
 
 group 'me.blueyescat.skriptholo'
-version '1.0.0'
+version '1.0.1'
 
 sourceCompatibility = 1.8
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
 
 repositories {
-    mavenCentral()
-    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots' }
-    maven { url 'https://oss.sonatype.org/content/groups/public' }
-    maven { url 'http://nexus.hc.to/content/repositories/pub_releases' }
-    maven { url 'https://jitpack.io' }
-    maven { url 'http://maven.sk89q.com/repo' }
-    maven { url 'https://repo.destroystokyo.com/repository/maven-public' }
-    maven { url 'https://ci.filoghost.me/plugin/repository/everything' }
-    maven { url 'http://repo.dmulloy2.net/nexus/repository/public/' }
+	jcenter()
+	mavenCentral()
+	maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots' }
+	maven { url 'https://oss.sonatype.org/content/groups/public' }
+	maven { url 'http://nexus.hc.to/content/repositories/pub_releases' }
+	maven { url 'http://maven.sk89q.com/repo' }
+	maven { url 'https://repo.destroystokyo.com/repository/maven-public' }
+	maven { url 'https://ci.filoghost.me/plugin/repository/everything' }
+	maven { url 'http://repo.dmulloy2.net/nexus/repository/public/' }
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation 'org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT'
-    implementation 'com.github.SkriptLang:Skript:dev36'
-    implementation 'com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.3.2'
-    implementation 'com.comphenix.protocol:ProtocolLib:4.4.0'
+	implementation 'org.spigotmc:spigot-api:1.14.3-R0.1-SNAPSHOT'
+	implementation 'com.github.SkriptLang:Skript:dev36'
+	implementation 'com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.3.2'
+	implementation 'com.comphenix.protocol:ProtocolLib:4.4.0'
 }
 
 processResources {
-    filter(ReplaceTokens, tokens: [version: version])
+	filter(ReplaceTokens, tokens: [version: version])
 }
 
 jar {
-    archiveName = "skript-holo.$extension"
+	archiveName = "skript-holo.$extension"
 }

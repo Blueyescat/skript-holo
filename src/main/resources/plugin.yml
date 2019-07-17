@@ -9,4 +9,4 @@ depend: [Skript, HolographicDisplays]
 softdepend: [ProtocolLib]
 
 main: me.blueyescat.skriptholo.SkriptHolo
-api-version: 1.13
+api-version: 1.14
