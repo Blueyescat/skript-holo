@@ -57,7 +57,7 @@ public class Listeners implements Listener {
 							if (player.equals(entity) && !holo.getVisibilityManager().isVisibleTo(player))
 								continue;
 							Location location = entity.getLocation().clone();
-							if ((holo.getWorld() == location.getWorld()) || (holo.getLocation().distance(location) != 0))
+							if (holo.getWorld() == location.getWorld() && holo.getLocation().distance(location) != 0)
 								holo.teleport(entry.getValue() != null ? Utils.offsetLocation(location, (Direction[]) entry.getValue()) : location);
 						}
 					}
@@ -114,7 +114,7 @@ public class Listeners implements Listener {
 			if (event.getTo() == null)
 				return;
 			Location location = event.getTo().clone();
-			if ((holo.getWorld() == location.getWorld()) || (holo.getLocation().distance(location) != 0))
+			if (holo.getWorld() == location.getWorld() && holo.getLocation().distance(location) != 0)
 				holo.teleport(entry.getValue() != null ? Utils.offsetLocation(location, (Direction[]) entry.getValue()) : location);
 		}
 	}
