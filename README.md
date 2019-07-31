@@ -17,7 +17,7 @@ Contact me on Discord or [open an issue on Github](https://github.com/Blueyescat
 - [Releases](https://github.com/Blueyescat/skript-holo/releases)
 - [Metrics (bStats)](https://bstats.org/plugin/bukkit/skript-holo)
 - [HolographicDisplays](https://dev.bukkit.org/projects/holographic-displays)
-  - [Development builds, for 1.14+](ci.codemc.org/job/filoghost/job/HolographicDisplays)
+  - [Development builds, for 1.14+](https://ci.codemc.org/job/filoghost/job/HolographicDisplays)
 - [skUnity forums resource](https://forums.skunity.com/resources/skript-holo.748)
 
 #### Discord
