@@ -35,8 +35,8 @@ public class CondIsHologramLineTextItem extends Condition {
 	private Expression<HologramLine> lines;
 	private boolean isText;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		lines = (Expression<HologramLine>) exprs[0];
 		isText = parseResult.mark == 0;

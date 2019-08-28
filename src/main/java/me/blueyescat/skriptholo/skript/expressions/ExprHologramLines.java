@@ -59,8 +59,8 @@ public class ExprHologramLines extends SimpleExpression<HologramLine> {
 	private Kleenean firstLine = Kleenean.UNKNOWN;
 	private boolean allLines, isSingle;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		// All lines
 		if (matchedPattern <= 1) {

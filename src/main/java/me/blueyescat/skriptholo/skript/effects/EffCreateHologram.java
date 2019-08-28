@@ -60,8 +60,8 @@ public class EffCreateHologram extends Effect {
 	private Variable<?> variable;
 	private boolean isFollowing, clickable, touchable;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		clickable = (parseResult.mark & 1) == 1;
 		touchable = (parseResult.mark & 2) == 2;

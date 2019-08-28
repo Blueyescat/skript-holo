@@ -33,8 +33,8 @@ public class EffAllowPlaceholdersInHologram extends Effect {
 	private Expression<Hologram> holograms;
 	private boolean allow;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		holograms = (Expression<Hologram>) exprs[0];
 		allow = matchedPattern == 0;

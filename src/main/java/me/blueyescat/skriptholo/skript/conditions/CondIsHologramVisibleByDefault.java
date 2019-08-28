@@ -34,6 +34,7 @@ public class CondIsHologramVisibleByDefault extends Condition {
 
 	private Expression<Hologram> holograms;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {

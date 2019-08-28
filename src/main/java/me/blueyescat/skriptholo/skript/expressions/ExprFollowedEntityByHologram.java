@@ -39,15 +39,15 @@ public class ExprFollowedEntityByHologram extends SimpleExpression<Entity> {
 
 	private Expression<Hologram> holograms;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		holograms = (Expression<Hologram>) exprs[0];
 		return true;
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	protected Entity[] get(Event e) {
 		List<Entity> entities = new ArrayList<>();
 		for (Hologram holo : holograms.getArray(e)) {

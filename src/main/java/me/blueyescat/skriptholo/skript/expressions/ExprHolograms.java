@@ -38,8 +38,8 @@ public class ExprHolograms extends SimpleExpression<Hologram> {
 
 	private Expression<String> plugins;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		if (matchedPattern == 1)
 			plugins = (Expression<String>) exprs[0];

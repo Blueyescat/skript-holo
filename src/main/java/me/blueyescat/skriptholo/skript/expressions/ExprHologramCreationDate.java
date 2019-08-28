@@ -34,8 +34,8 @@ public class ExprHologramCreationDate extends SimpleExpression<Date> {
 
 	private Expression<Hologram> holograms;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		holograms = (Expression<Hologram>) exprs[0];
 		return true;

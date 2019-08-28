@@ -32,8 +32,8 @@ public class EffTeleportHologram extends Effect {
 	private Expression<Hologram> holograms;
 	private Expression<Location> location;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		holograms = (Expression<Hologram>) exprs[0];
 		location = Direction.combine((Expression<Direction>) exprs[1], (Expression<Location>) exprs[2]);

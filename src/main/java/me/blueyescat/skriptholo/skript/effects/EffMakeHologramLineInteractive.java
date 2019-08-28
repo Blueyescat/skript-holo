@@ -40,8 +40,8 @@ public class EffMakeHologramLineInteractive extends Effect {
 	private Expression<HologramLine> lines;
 	private boolean negated, clickable, touchable;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		negated = parseResult.mark == 1;
 		lines = (Expression<HologramLine>) exprs[0];

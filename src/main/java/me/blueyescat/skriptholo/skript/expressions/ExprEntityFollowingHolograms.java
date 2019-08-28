@@ -41,8 +41,8 @@ public class ExprEntityFollowingHolograms extends SimpleExpression<Hologram> {
 
 	private Expression<Entity> entities;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		if (!Utils.hasPlugin("ProtocolLib")) {
 			Skript.error("The following hologram feature requires ProtocolLib");
@@ -52,8 +52,8 @@ public class ExprEntityFollowingHolograms extends SimpleExpression<Hologram> {
 		return true;
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	protected Hologram[] get(Event e) {
 		List<Hologram> holograms = new ArrayList<>();
 		for (Entity entity : entities.getArray(e)) {

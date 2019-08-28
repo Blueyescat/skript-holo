@@ -48,8 +48,8 @@ public class EffHologramVisibility extends Effect {
 	private Expression<Player> players;
 	private Modes mode;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		if (!Utils.hasPlugin("ProtocolLib")) {
 			Skript.error("The hologram visibility feature requires ProtocolLib");

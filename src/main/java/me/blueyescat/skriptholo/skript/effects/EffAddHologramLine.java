@@ -48,8 +48,8 @@ public class EffAddHologramLine extends Effect {
 		APPEND, PREPEND, INSERT
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		if (matchedPattern == 0) {
 			mode = Modes.APPEND;

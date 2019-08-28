@@ -35,8 +35,8 @@ public class EffDeleteHologram extends Effect {
 
 	private Expression<Hologram> holograms;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		holograms = (Expression<Hologram>) exprs[0];
 		return true;

@@ -73,8 +73,8 @@ public class Listeners implements Listener {
 				});
 
 		new BukkitRunnable() {
-			@Override
 			@SuppressWarnings("unchecked")
+			@Override
 			public void run() {
 				for (Object o : SkriptHolo.followingHologramsEntities.entrySet()) {
 					Map.Entry entry = (Map.Entry) o;

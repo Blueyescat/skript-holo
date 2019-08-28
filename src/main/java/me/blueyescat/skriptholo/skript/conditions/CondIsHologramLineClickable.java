@@ -30,8 +30,8 @@ public class CondIsHologramLineClickable extends Condition {
 
 	private Expression<HologramLine> lines;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		lines = (Expression<HologramLine>) exprs[0];
 		setNegated(matchedPattern == 1 ^ parseResult.mark == 1);

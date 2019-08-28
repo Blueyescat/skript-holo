@@ -41,8 +41,8 @@ public class CondCanSeeHologram extends Condition {
 	private Expression<Player> players;
 	private Expression<Hologram> holograms;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		if (!Utils.hasPlugin("ProtocolLib")) {
 			Skript.error("The hologram visibility feature requires ProtocolLib");

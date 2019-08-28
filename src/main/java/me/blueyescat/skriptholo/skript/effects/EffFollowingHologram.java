@@ -43,8 +43,8 @@ public class EffFollowingHologram extends Effect {
 	private Expression<Direction> offset;
 	private boolean negative;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		if (!Utils.hasPlugin("ProtocolLib")) {
 			Skript.error("The following hologram feature requires ProtocolLib");

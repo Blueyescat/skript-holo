@@ -35,8 +35,8 @@ public class ExprHologramLineNumber extends SimpleExpression<Number> {
 
 	private Expression<HologramLine> lines;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		lines = (Expression<HologramLine>) exprs[0];
 		return true;

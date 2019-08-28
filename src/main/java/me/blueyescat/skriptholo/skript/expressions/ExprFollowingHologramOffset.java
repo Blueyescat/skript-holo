@@ -44,8 +44,8 @@ public class ExprFollowingHologramOffset extends SimpleExpression<Direction> {
 
 	private Expression<Hologram> holograms;
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		if (!Utils.hasPlugin("ProtocolLib")) {
 			Skript.error("The following hologram feature requires ProtocolLib");
@@ -80,8 +80,8 @@ public class ExprFollowingHologramOffset extends SimpleExpression<Direction> {
 		return null;
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
 		for (Hologram holo : holograms.getArray(e)) {
 			if (!Utils.isFollowingHologram(holo))
