@@ -1,3 +1,5 @@
+lib/
+
 ## Gradle
 .gradle
 build/

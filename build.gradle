@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'me.blueyescat.skriptholo'
-version '1.0.1'
+version '1.0.2'
 
 sourceCompatibility = 1.8
 compileJava.options.encoding = 'UTF-8'
@@ -25,10 +25,11 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.spigotmc:spigot-api:1.14.3-R0.1-SNAPSHOT'
+	implementation 'org.spigotmc:spigot-api:1.14.4-R0.1-SNAPSHOT'
 	implementation 'com.github.SkriptLang:Skript:dev36'
 	implementation 'com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.3.2'
 	implementation 'com.comphenix.protocol:ProtocolLib:4.4.0'
+    compile fileTree(include: ['*.jar'], dir: 'lib')
 }
 
 processResources {

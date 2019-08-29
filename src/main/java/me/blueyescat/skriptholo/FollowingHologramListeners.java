@@ -1,6 +1,5 @@
 package me.blueyescat.skriptholo;
 
-import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
@@ -9,9 +8,11 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.util.Direction;
 
 import com.comphenix.protocol.PacketType;
@@ -20,19 +21,24 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
+import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent;
+import com.gmail.filoghost.holographicdisplays.HolographicDisplays;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
-import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
 import me.blueyescat.skriptholo.util.Utils;
 
-public class Listeners implements Listener {
+public class FollowingHologramListeners implements Listener {
+
+	private final static boolean entityRemoveEventExists = Skript.classExists("com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent");
 
 	public static void start() {
 		if (SkriptHolo.startedFollowingHologramTasks)
 			return;
 		SkriptHolo.startedFollowingHologramTasks = true;
 
-		Bukkit.getPluginManager().registerEvents(new Listeners(), SkriptHolo.getInstance());
+		Bukkit.getPluginManager().registerEvents(new FollowingHologramListeners(), SkriptHolo.getInstance());
+		if (entityRemoveEventExists)
+			Bukkit.getPluginManager().registerEvents(new FollowingHologramListeners.EntityRemoveListener(), SkriptHolo.getInstance());
 
 		ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
 
@@ -53,7 +59,14 @@ public class Listeners implements Listener {
 								continue;
 							}
 							Player player = event.getPlayer();
-							Entity entity = event.getPacket().getEntityModifier(event).getValues().get(0);
+							Entity entity;
+							try {
+								entity = event.getPacket().getEntityModifier(event).read(0);
+							} catch (Exception e) {
+								// Use HolographicDisplays' workaround for the ProtocolLib bug
+								entity = HolographicDisplays.getNMSManager()
+										.getEntityFromID(player.getWorld(), event.getPacket().getIntegers().read(0));
+							}
 							if (player.equals(entity) && !holo.getVisibilityManager().isVisibleTo(player))
 								continue;
 							Location location = entity.getLocation().clone();
@@ -63,36 +76,29 @@ public class Listeners implements Listener {
 					}
 				});
 
-		protocolManager.addPacketListener(
-				new PacketAdapter(SkriptHolo.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.ENTITY_DESTROY) {
-					@Override
-					public void onPacketSending(PacketEvent event) {
-						for (int entityID : event.getPacket().getIntegerArrays().read(0))
-							SkriptHolo.deleteFollowingHolograms(entityID);
-					}
-				});
-
-		new BukkitRunnable() {
-			@SuppressWarnings("unchecked")
-			@Override
-			public void run() {
-				for (Object o : SkriptHolo.followingHologramsEntities.entrySet()) {
-					Map.Entry entry = (Map.Entry) o;
-					Entity entity = (Entity) entry.getKey();
-					if (!entity.isValid()) {
-						for (Hologram holo : (List<Hologram>) entry.getValue()) {
-							if (!holo.isDeleted())
-								holo.delete();
-							if (holo.equals(EffCreateHologram.lastCreated))
-								EffCreateHologram.lastCreated = null;
-							SkriptHolo.followingHologramsList.remove(holo);
+		if (!entityRemoveEventExists) {
+			protocolManager.addPacketListener(
+					new PacketAdapter(SkriptHolo.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.ENTITY_DESTROY) {
+						@Override
+						public void onPacketSending(PacketEvent event) {
+							for (int entityID : event.getPacket().getIntegerArrays().read(0)) {
+								if (SkriptHolo.followingHolograms.containsKey(entityID)) {
+									Utils.cleanFollowingHolograms();
+									return;
+								}
+							}
 						}
-						SkriptHolo.followingHologramsEntities.remove(entity);
-						SkriptHolo.followingHolograms.remove(entity.getEntityId());
-					}
+					});
+
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					Utils.cleanFollowingHolograms();
 				}
-			}
-		}.runTaskTimerAsynchronously(SkriptHolo.getInstance(), 60, 0);
+			}.runTaskTimerAsynchronously(SkriptHolo.getInstance(), 0, 20 * 5);
+
+			Bukkit.getPluginManager().registerEvents(new FollowingHologramListeners.EntityDeathListener(), SkriptHolo.getInstance());
+		}
 	}
 
 	@EventHandler
@@ -117,6 +123,24 @@ public class Listeners implements Listener {
 			if (holo.getWorld() == location.getWorld() && holo.getLocation().distance(location) != 0)
 				holo.teleport(entry.getValue() != null ? Utils.offsetLocation(location, (Direction[]) entry.getValue()) : location);
 		}
+	}
+
+	static class EntityRemoveListener implements Listener {
+
+		@EventHandler
+		public void onEntityRemove(EntityRemoveFromWorldEvent event) {
+			Utils.deleteFollowingHolograms(event.getEntity().getEntityId());
+		}
+
+	}
+
+	static class EntityDeathListener implements Listener {
+
+		@EventHandler
+		public void onEntityDeath(EntityDeathEvent event) {
+			Utils.deleteFollowingHolograms(event.getEntity().getEntityId());
+		}
+
 	}
 
 }

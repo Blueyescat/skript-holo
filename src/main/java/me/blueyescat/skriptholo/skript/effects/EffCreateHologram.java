@@ -25,7 +25,7 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 
-import me.blueyescat.skriptholo.Listeners;
+import me.blueyescat.skriptholo.FollowingHologramListeners;
 import me.blueyescat.skriptholo.SkriptHolo;
 import me.blueyescat.skriptholo.util.Utils;
 
@@ -139,7 +139,7 @@ public class EffCreateHologram extends Effect {
 		if (isFollowing) {
 			assert entity != null;
 			Utils.makeHologramStartFollowing(holo, entity, offset);
-			Listeners.start();
+			FollowingHologramListeners.start();
 		}
 		if (variable != null)
 			variable.change(e, CollectionUtils.array(holo), (variable.isList() ? ChangeMode.ADD : ChangeMode.SET));

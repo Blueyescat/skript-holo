@@ -19,7 +19,6 @@ import ch.njol.skript.util.Direction;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
 import me.blueyescat.skriptholo.util.Metrics;
-import me.blueyescat.skriptholo.util.Utils;
 
 public class SkriptHolo extends JavaPlugin implements Listener {
 
@@ -59,17 +58,6 @@ public class SkriptHolo extends JavaPlugin implements Listener {
 				getServer().getPluginManager().getPlugin("HolographicDisplays").getDescription().getVersion()));
 		getLogger().info("Started metrics!");
 		getLogger().info("Finished loading!");
-	}
-
-	static void deleteFollowingHolograms(int entityID) {
-		Map<Hologram, Direction[]> holoMap = followingHolograms.get(entityID);
-		if (holoMap == null || holoMap.isEmpty())
-			return;
-		for (Object o : holoMap.entrySet()) {
-			Map.Entry entry = (Map.Entry) o;
-			Hologram holo = (Hologram) entry.getKey();
-			Utils.deleteHologram(entityID, holo);
-		}
 	}
 
 	public static SkriptAddon getAddonInstance() {

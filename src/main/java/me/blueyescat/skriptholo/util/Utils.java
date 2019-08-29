@@ -20,6 +20,7 @@ import com.gmail.filoghost.holographicdisplays.api.line.ItemLine;
 import com.gmail.filoghost.holographicdisplays.api.line.TouchableLine;
 
 import me.blueyescat.skriptholo.SkriptHolo;
+import me.blueyescat.skriptholo.SkriptHolo;
 import me.blueyescat.skriptholo.skript.effects.EffCreateHologram;
 
 public class Utils {
@@ -78,6 +79,36 @@ public class Utils {
 
 	public static void deleteHologram(Hologram... holograms) {
 		deleteHologram(null, holograms);
+	}
+
+	public static void deleteFollowingHolograms(int entityID) {
+		Map<Hologram, Direction[]> holoMap = SkriptHolo.followingHolograms.get(entityID);
+		if (holoMap == null || holoMap.isEmpty())
+			return;
+		for (Object o : holoMap.entrySet()) {
+			Map.Entry entry = (Map.Entry) o;
+			Hologram holo = (Hologram) entry.getKey();
+			Utils.deleteHologram(entityID, holo);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public static void cleanFollowingHolograms() {
+		for (Object o : SkriptHolo.followingHologramsEntities.entrySet()) {
+			Map.Entry entry = (Map.Entry) o;
+			Entity entity = (Entity) entry.getKey();
+			if (!entity.isValid()) {
+				for (Hologram holo : (List<Hologram>) entry.getValue()) {
+					if (!holo.isDeleted())
+						holo.delete();
+					if (holo.equals(EffCreateHologram.lastCreated))
+						EffCreateHologram.lastCreated = null;
+					SkriptHolo.followingHologramsList.remove(holo);
+				}
+				SkriptHolo.followingHologramsEntities.remove(entity);
+				SkriptHolo.followingHolograms.remove(entity.getEntityId());
+			}
+		}
 	}
 
 	public static Location offsetLocation(Location loc, Direction... directions) {

@@ -36,7 +36,6 @@ public class CondIsHologramVisibleByDefault extends Condition {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		if (!Utils.hasPlugin("ProtocolLib")) {
 			Skript.error("The hologram visibility feature requires ProtocolLib");
